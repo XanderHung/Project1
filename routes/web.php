@@ -17,4 +17,4 @@ use Illuminate\Support\Facades\Route;
 //     return view('home');
 // });
 
-Route::get('/home', 'UserController@index');
+Route::get('/', 'UserController@index');
