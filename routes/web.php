@@ -18,3 +18,5 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', 'UserController@index');
+Route::get('/category', 'AdminController@addcategory');
+Route::post('/admin/create', 'AdminController@create');
