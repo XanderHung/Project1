@@ -11,7 +11,11 @@ class AdminController extends Controller
         $data_categoryflower = \App\Category::all();
         return view('addcat',['data_categoryflower' => $data_categoryflower]);
     }
-
+    public function viewcategory()
+    {
+        $data_categoryflower = \App\Category::all();
+        return view('viewcat',['data_categoryflower' => $data_categoryflower]);
+    }
     public function create(Request $request)
     {
         \App\Category::create($request->all());
