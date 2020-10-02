@@ -50,15 +50,12 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="address">Address</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="address" placeholder="Address">
+                        <input type="text" class="form-control" id="address" rows="2" placeholder="Address">
                     </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-primary">Sign in</button>
-                    <div class="divider well-sm"></div>
-                        <a class="dropdown-item" href="#">Forgot password?</a>
-                    </div>
+                    <button type="submit" class="btn btn-primary">Register</button>
                 </div>
             </div>
         </form>

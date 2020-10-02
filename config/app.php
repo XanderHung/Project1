@@ -176,7 +176,9 @@ return [
         App\Providers\RouteServiceProvider::class,
 
     ],
-
+    'timezone' => 'Asia/Jakarta',
+    'locale' => 'id',
+    'faker_locale' => 'id_ID',
     /*
     |--------------------------------------------------------------------------
     | Class Aliases

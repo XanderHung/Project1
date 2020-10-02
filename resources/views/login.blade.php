@@ -2,37 +2,60 @@
 
 @section('content')
 <div class="container">
-    <div class="col-sm-offset-2 col-sm-20 well-sm">
+    <div class="mt-5">
         <h2>Login</h2>
     </div>
-        <form class="form-horizontal">
+    <div class="mt-3">
+        <form class="needs-validation" novalidate>
             <div class="form-group">
-                <label class="control-label col-sm-2" for="email">E-mail address</label>
-                <div class="col-sm-10">
-                <input type="email" class="form-control" id="email" placeholder="Email">
+                <label class="control-label" for="email">E-mail address</label>
+                <div>
+                <input type="email" class="form-control" id="email" placeholder="Email" required>
+                <div class="valid-feedback">Valid.</div>
+                <div class="invalid-feedback">Please fill out this field.</div>
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-2" for="pwd">Password</label>
-                <div class="col-sm-10">
-                <input type="password" class="form-control" id="pwd" placeholder="Password">
+                <label class="control-label" for="pwd">Password</label>
+                <div>
+                <input type="password" class="form-control" id="pwd" placeholder="Password" required>
+                <div class="valid-feedback">Valid.</div>
+                <div class="invalid-feedback">Please fill out this field.</div>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <input type="checkbox" class="form-check-input" id="dropdownCheck">
-                    <label class="form-check-label" for="dropdownCheck">
+            <div class="form-group form-check">
+                    <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" name="remember" required>
                     Remember me
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Check this checkbox to continue.</div>
                     </label>
-                </div>
             </div>
             <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-primary">Sign in</button>
-                    <div class="divider well-sm"></div>
-                        <a class="dropdown-item" href="#">Forgot password?</a>
-                    </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                        <a class="px-2" href="#">Forgot password?</a>
                 </div>
             </div>
         </form>
+    </div>
+<script>
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Get the forms we want to add validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>
 @endsection
