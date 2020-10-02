@@ -21,3 +21,5 @@ Route::get('/', 'UserController@index');
 Route::get('/addcat', 'AdminController@addcategory');
 Route::post('/admin/create', 'AdminController@create');
 Route::get('/viewcat','AdminController@viewcategory');
+Route::get('/login','UserController@login');
+Route::get('/register','UserController@register');
