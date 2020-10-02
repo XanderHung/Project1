@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Category;
 
 class AdminController extends Controller
 {
@@ -16,8 +17,26 @@ class AdminController extends Controller
         $data_categoryflower = \App\Category::all();
         return view('viewcat',['data_categoryflower' => $data_categoryflower]);
     }
-    public function create(Request $request)
+    public function store(Request $request)
     {
-        \App\Category::create($request->all());
+       $request->validate([
+           'categoryname' => 'required|min:3',
+       ]);
+
+       $input = $request->all();
+       if($request->hasFile('categoryimage'))
+       {
+           $destination_path = 'public/image/products';
+           $image = $request->file('categoryimage');
+           $image_name = $image->getClientOriginalName();
+           $path = $request->file('categoryimage')->storeAs($destination_path,$image_name);
+
+           $input['categoryimage'] = $image_name;
+       }
+
+       Category::create($input);
+       session()->flash('message',$input['categoryname'].' successfully saved');
+
+       return redirect('/addcat');
     }
 }

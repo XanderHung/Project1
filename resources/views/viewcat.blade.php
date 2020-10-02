@@ -3,7 +3,11 @@
 @section('content')
     <div class="container">
         @foreach($data_categoryflower as $catflow)
-            <div class="rounded mx-auto d-block"><img src="{{asset('upload/category/' . $catflow->categoryimage)}}"></div>
+            <tr>
+                <td>{{$catflow->categoryid}}</td>
+                <td>{{$catflow->categoryname}}</td>
+                <td>{{$catflow->categoryimage}}</td>
+            </tr>
         @endforeach
     </div>
 @endsection

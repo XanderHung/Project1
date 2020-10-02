@@ -1,7 +1,7 @@
 @extends('viewdef')
 
 @section('content')
-<form action="/admin/create" method="POST">
+<form action="/admin/store" method="POST">
   {{csrf_field()}}
   <div class="form-group">
     <label for="catname">Category Name</label>
