@@ -31,14 +31,6 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <input type="checkbox" class="form-check-input" id="dropdownCheck">
-                    <label class="form-check-label" for="dropdownCheck">
-                    Remember me
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
                 <label class="control-label col-sm-2" for="gender">Gender</label>
                 <div class="col-sm-10">
                     <div class="radio">
@@ -48,6 +40,12 @@
                         <label><input type="radio" name="optradio">Female</label>
                     </div>
                 </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="dob">Date of Birth</label>
+                    <div class="col-sm-10">
+                        <input type="date" class="form-control" id="dob" placeholder="mm/dd/yyyy">
+                    </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="address">Address</label>
