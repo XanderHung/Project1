@@ -18,6 +18,6 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', 'UserController@index');
-Route::get('/category', 'AdminController@addcategory');
+Route::get('/addcat', 'AdminController@addcategory');
 Route::post('/admin/create', 'AdminController@create');
-Route::get('/viewcategory','AdminController@viewcategory');
+Route::get('/viewcat','AdminController@viewcategory');
