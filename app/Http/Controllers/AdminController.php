@@ -19,24 +19,41 @@ class AdminController extends Controller
     }
     public function store(Request $request)
     {
-       $request->validate([
-           'categoryname' => 'required|min:3',
-       ]);
+        $cat = new Category();
+        $cat->categoryname = $request->input('categoryname');
+        
+        if ($request ->hasfile('categoryimage')){
+            $file = $request->file('categoryimage');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('upload/category/',$filename);
+            $cat->categoryimage = $filename;
+        }else{
+            return $request;
+            $cat->categoryimage = '';
+        }
+        $cat->save();
 
-       $input = $request->all();
-       if($request->hasFile('categoryimage'))
-       {
-           $destination_path = 'public/image/products';
-           $image = $request->file('categoryimage');
-           $image_name = $image->getClientOriginalName();
-           $path = $request->file('categoryimage')->storeAs($destination_path,$image_name);
+        return view('addcat')->with('addcat',$cat);
 
-           $input['categoryimage'] = $image_name;
-       }
+    //    $request->validate([
+    //        'categoryname' => 'required|min:3',
+    //    ]);
 
-       Category::create($input);
-       session()->flash('message',$input['categoryname'].' successfully saved');
+    //    $input = $request->all();
+    //    if($request->hasFile('categoryimage'))
+    //    {
+    //        $destination_path = 'public/image/products';
+    //        $image = $request->file('categoryimage');
+    //        $image_name = $image->getClientOriginalName();
+    //        $path = $request->file('categoryimage')->storeAs($destination_path,$image_name);
 
-       return redirect('/addcat');
+    //        $input['categoryimage'] = $image_name;
+    //    }
+
+    //    Category::create($input);
+    //    session()->flash('message',$input['categoryname'].' successfully saved');
+
+    //    return redirect('/addcat');
     }
 }

@@ -1,7 +1,7 @@
 @extends('viewdef')
 
 @section('content')
-<form action="/admin/store" method="POST">
+<form action="{{route('addimage')}}" method="POST" enctype="multipart/form-data">
   {{csrf_field()}}
   <div class="form-group">
     <label for="catname">Category Name</label>

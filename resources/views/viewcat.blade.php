@@ -11,9 +11,8 @@
             <tbody>
             @foreach($data_categoryflower as $catflow)
             <tr>
-                <td>{{$catflow->categoryid}}</td>
                 <td>{{$catflow->categoryname}}</td>
-                <td>{{$catflow->categoryimage}}</td>
+                <td><img src="{{asset('upload/category/' . $catflow->categoryimage)}}" alt="Image"></td>
             </tr>
             @endforeach
             </tbody>

@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'UserController@index');
 Route::get('/addcat', 'AdminController@addcategory');
-Route::post('/admin/store', 'AdminController@store');
+Route::post('/addcat', 'AdminController@store')->name('addimage');
 Route::get('/viewcat','AdminController@viewcategory');
 Route::get('/login','UserController@login');
 Route::get('/register','UserController@register');
