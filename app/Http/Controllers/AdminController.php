@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
-
+use DB;
 class AdminController extends Controller
 {
     public function addcategory()
@@ -35,25 +35,21 @@ class AdminController extends Controller
         $cat->save();
 
         return view('addcat')->with('addcat',$cat);
+    }
 
-    //    $request->validate([
-    //        'categoryname' => 'required|min:3',
-    //    ]);
 
-    //    $input = $request->all();
-    //    if($request->hasFile('categoryimage'))
-    //    {
-    //        $destination_path = 'public/image/products';
-    //        $image = $request->file('categoryimage');
-    //        $image_name = $image->getClientOriginalName();
-    //        $path = $request->file('categoryimage')->storeAs($destination_path,$image_name);
+    public function edit($id)
+    {
+    
+    $category = DB::table('category')->where('categoryid',$id)->first();
+    // passing data books yang didapat ke view edit.blade.php
+    return view('edit', compact('category'));
+    }
 
-    //        $input['categoryimage'] = $image_name;
-    //    }
 
-    //    Category::create($input);
-    //    session()->flash('message',$input['categoryname'].' successfully saved');
-
-    //    return redirect('/addcat');
+    public function destroy($id)
+    {
+        DB::table('category')->where('categoryid',$id)->delete();
+        return redirect('/viewcat')->with('success', 'Category deleted!');
     }
 }
