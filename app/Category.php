@@ -8,4 +8,8 @@ class Category extends Model
 {
     protected $table = 'category';
     protected $fillable =['categoryname', 'categoryimage'];
+    public function flower()
+    {
+        return $this->hasMany('App\Models\Flower');
+    }
 }
