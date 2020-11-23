@@ -25,3 +25,4 @@ Route::get('/login','UserController@login');
 Route::get('/register','UserController@register');
 Route::get('/delcat/{id}', 'AdminController@destroy');
 Route::get('/editcat/{id}','AdminController@edit')->name('editcategory');
+Route::get('/mancat','AdminController@managecat');

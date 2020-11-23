@@ -16,7 +16,7 @@ class Flower extends Migration
         Schema::create('flower', function (Blueprint $table) {
             $table->bigIncrements('flowerid');
             $table->integer('categoryid')->unsigned();
-            $table->foreign('categoryid')->references('categoryid')->on('category');
+            $table->foreign('categoryid')->references('categoryid')->on('category')->onUpdate('cascade')->onDelete('cascade');
             $table->string('flowername',50);
             $table->integer('price');
             $table->text('description');

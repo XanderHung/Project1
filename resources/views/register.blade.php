@@ -34,10 +34,10 @@
                 <label class="control-label col-sm-2" for="gender">Gender</label>
                 <div class="col-sm-10">
                     <div class="radio">
-                        <label><input type="radio" name="optradio">Male</label>
+                        <label><input type="radio" name="Gender" value="Male">Male</label>
                     </div>
                     <div class="radio">
-                        <label><input type="radio" name="optradio">Female</label>
+                        <label><input type="radio" name="Gender" value="Female">Female</label>
                     </div>
                 </div>
             </div>
