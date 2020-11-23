@@ -21,7 +21,7 @@ class User extends Migration
             $table->mediumText('address');
             $table->string('gender');
             $table->date('dob');
-            $table->integer('roleid');
+            $table->integer('roleid')->unsigned();
             $table->foreign('roleid')->references('roleid')->on('roletype')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });

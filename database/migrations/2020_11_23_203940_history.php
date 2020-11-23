@@ -15,7 +15,7 @@ class History extends Migration
     {
         Schema::create('history', function (Blueprint $table) {
             $table->increments('transactionid');
-            $table->integer('cartid');
+            $table->integer('cartid')->unsigned();
             $table->foreign('cartid')->references('cartid')->on('cart')->onUpdate('cascade')->onDelete('cascade');
             $table->date('transactiondate');
             $table->timestamps();

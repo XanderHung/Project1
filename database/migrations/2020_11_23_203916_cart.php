@@ -15,9 +15,9 @@ class Cart extends Migration
     {
         Schema::create('cart', function (Blueprint $table) {
             $table->increments('cartid');
-            $table->bigInteger('flowerid');
+            $table->bigInteger('flowerid')->unsigned();
             $table->foreign('flowerid')->references('flowerid')->on('flower')->onUpdate('cascade')->onDelete('cascade');
-            $table->bigInteger('userid');
+            $table->bigInteger('userid')->unsigned();
             $table->foreign('userid')->references('userid')->on('user')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('Quantity');
             $table->timestamps();
