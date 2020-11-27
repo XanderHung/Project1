@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Category;
 use Illuminate\Support\Facades\DB;
+
+
 class AdminController extends Controller
 {
     public function addcategory()
@@ -21,7 +23,6 @@ class AdminController extends Controller
     {
         $cat = new Category();
         $cat->categoryname = $request->input('categoryname');
-        
         if ($request ->hasfile('categoryimage')){
             $file = $request->file('categoryimage');
             $extension = $file->getClientOriginalExtension();
@@ -33,8 +34,7 @@ class AdminController extends Controller
             $cat->categoryimage = '';
         }
         $cat->save();
-
-        return view('addcat')->with('addcat',$cat);
+        return redirect()->back();
     }
 
 
@@ -51,5 +51,9 @@ class AdminController extends Controller
     {
         DB::table('category')->where('categoryid',$id)->delete();
         return redirect('/viewcat')->with('success', 'Category deleted!');
+    }
+
+    public function mancat(){
+        
     }
 }

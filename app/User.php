@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class user extends Model
 {
+    protected $table = 'user';
+    protected $fillable =['username', 'email','password','address','gender','dob','roleid'];
     public function roletype()
     {
         return $this->hasOne('App\Models\roletype');

@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'UserController@index');
 Route::get('/addcat', 'AdminController@addcategory');
 Route::post('/addcat', 'AdminController@store')->name('addcategory');
+Route::post('/register','Login@store')->name('adduser');
 Route::get('/viewcat','AdminController@viewcategory');
 Route::get('/login','UserController@login');
 Route::get('/register','UserController@register');
