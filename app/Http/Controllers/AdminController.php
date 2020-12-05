@@ -52,8 +52,4 @@ class AdminController extends Controller
         DB::table('category')->where('categoryid',$id)->delete();
         return redirect('/viewcat')->with('success', 'Category deleted!');
     }
-
-    public function mancat(){
-        
-    }
 }

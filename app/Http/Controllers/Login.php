@@ -2,23 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\user;
+
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 
 class Login extends Controller
 {
-    public function store(Request $request)
+    public function showloginform(){
+        return view('/login');
+    }
+    public function login(Request $request)
     {
-        $user = new user();
-        $user->username = $request->input('username');
-        $user->email = $request->input('email');
-        $user->password = $request->input('password');
-        $user->address = $request->input('address');
-        $user->gender = $request->input('gender');
-        $user->roleid = '2';
-        $user->dob = $request->input('dob');
-        $user->save();
-        return view('home',compact($user));
+        $email= $request->input('email');
+        $password = $request->input('password');
+
+        $result =Auth::attempt([
+            'email'=> $email,
+            'password'=> $password,
+        ]);
+        if($result === true){
+            return redirect('/');
+        }else{
+            return redirect('/login?error=1');
+        }
+    }
+    public function logout(){
+        Auth::logout();
     }
 }

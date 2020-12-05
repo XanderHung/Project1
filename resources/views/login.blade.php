@@ -6,11 +6,12 @@
         <h2>Login</h2>
     </div>
     <div class="mt-3">
-        <form class="needs-validation" novalidate>
+        <form class="needs-validation" action="/login" method="post" novalidate>
+            @csrf
             <div class="form-group">
                 <label class="control-label" for="email">E-mail address</label>
                 <div>
-                <input type="email" class="form-control" id="email" placeholder="Email" required>
+                <input type="email" class="form-control" id="email" placeholder="Email" name="email" required>
                 <div class="valid-feedback">Valid.</div>
                 <div class="invalid-feedback">Please fill out this field.</div>
                 </div>
@@ -18,7 +19,7 @@
             <div class="form-group">
                 <label class="control-label" for="pwd">Password</label>
                 <div>
-                <input type="password" class="form-control" id="pwd" placeholder="Password" required>
+                <input type="password" class="form-control" id="pwd" placeholder="Password" name="password" required>
                 <div class="valid-feedback">Valid.</div>
                 <div class="invalid-feedback">Please fill out this field.</div>
                 </div>
@@ -34,7 +35,6 @@
             <div class="form-group">
                 <div>
                     <button type="submit" class="btn btn-primary">Login</button>
-                        <a class="px-2" href="#">Forgot password?</a>
                 </div>
             </div>
         </form>
