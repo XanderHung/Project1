@@ -18,7 +18,7 @@ class Cart extends Migration
             $table->bigInteger('flowerid')->unsigned();
             $table->foreign('flowerid')->references('flowerid')->on('flower')->onUpdate('cascade')->onDelete('cascade');
             $table->bigInteger('userid')->unsigned();
-            $table->foreign('userid')->references('userid')->on('user')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('userid')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('Quantity');
             $table->timestamps();
         });

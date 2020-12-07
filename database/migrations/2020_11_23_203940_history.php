@@ -29,6 +29,6 @@ class History extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('history');
     }
 }

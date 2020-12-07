@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notifiable;
 class user extends Authenticatable
 {
     use Notifiable;
-    protected $table = 'user';
+    protected $table = 'users';
     protected $fillable =['username', 'email','address','gender','dob','roleid'];
     protected $casts = [
         'email_verified_at' => 'datetime',
