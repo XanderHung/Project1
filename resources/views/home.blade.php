@@ -8,3 +8,25 @@
     </div>
 </div>
 @endsection
+@section('userinfo')
+    @foreach($user as $users)
+            <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{$users->rolename}}
+                  </a>
+                @if($users->rolename == 'User')
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/logout">Logout</a>
+                        <a class="dropdown-item" href="/viewcat">View Category</a>
+                    </div>
+                    @else
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      <a class="dropdown-item" href="/logout">Logout</a>
+                      <a class="dropdown-item" href="/mancat">Manage Category</a>
+                      <a class="dropdown-item" href="/viewcat">View Category</a>
+                  </div>
+                    @endif
+
+            </li>
+    @endforeach
+@endsection

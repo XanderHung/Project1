@@ -16,9 +16,9 @@ class user extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    public function roletype()
+    public function roletypes()
     {
-        return $this->hasOne('App\Models\roletype');
+        return $this->belongsTo(roletype::class,'roleid');
     }
 
     public function history()

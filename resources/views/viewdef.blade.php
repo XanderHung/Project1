@@ -25,7 +25,6 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <a class="dropdown-item" href="/addcat">Add Category</a>
-                <a class="dropdown-item" href="/mancat">Manage Category</a>
                 <a class="dropdown-item" href="/viewcat">View Category</a>
             </div>
         </li>
@@ -37,16 +36,7 @@
             <a class="nav-link" href="/login">Login</a>
         </li>
           @else
-              <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      User
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                      <a class="dropdown-item" href="/logout">Logout</a>
-                      <a class="dropdown-item" href="/mancat">Manage Category</a>
-                      <a class="dropdown-item" href="/viewcat">View Category</a>
-                  </div>
-              </li>
+              @yield('userinfo')
           @endif
       </ul>
     </div>
