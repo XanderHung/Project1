@@ -16,16 +16,22 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('home');
 // });
+Route::group([
+    'middleware' =>[\App\Http\Middleware\Admin::class]
+],function (){
+    Route::get('/addflower', 'flower@showflowerform');
+    Route::post('/addflower', 'flower@flower');
+    Route::get('/delflower/{id}', 'flower@destroy');
+    Route::get('/editflower/{id}','flower@edit')->name('editflower');
+    Route::get('/mancat','category@managecategory');
+    Route::get('/delcat/{id}', 'category@destroy');
+    Route::get('/editcat/{id}','category@edit')->name('editcategory');
+});
 
 Route::get('/', 'UserController@index');
-Route::get('/addcat', 'AdminController@addcategory');
-Route::post('/addcat', 'AdminController@store')->name('addcategory');
 Route::post('/register','register@register');
 Route::post('/login','Login@login');
 Route::get('/logout','Login@logout');
-Route::get('/mancat','AdminController@managecategory');
 Route::get('/login','Login@showloginform');
 Route::get('/viewcat','UserController@viewcategory');
 Route::get('/register','register@showregisterform');
-Route::get('/delcat/{id}', 'AdminController@destroy');
-Route::get('/editcat/{id}','AdminController@edit')->name('editcategory');

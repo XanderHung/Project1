@@ -1,9 +1,8 @@
 @extends('viewdef')
-
 @section('content')
     <div class="border rounded my-4 p-3 container bg-light">
         <div class="title text-center my-2">
-            <h1>Flower Category</h1>
+            <h1>{{$data_categoryflower}}</h1>
         </div>
 
         <div class="row my-3">

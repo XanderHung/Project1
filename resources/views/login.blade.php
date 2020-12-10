@@ -26,10 +26,8 @@
             </div>
             <div class="form-group form-check">
                     <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input" name="remember" required>
+                    <input type="checkbox" class="form-check-input" name="remember">
                     Remember me
-                    <div class="valid-feedback">Valid.</div>
-                    <div class="invalid-feedback">Check this checkbox to continue.</div>
                     </label>
             </div>
             <div class="form-group">
