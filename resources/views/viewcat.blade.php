@@ -1,14 +1,14 @@
 @extends('viewdef')
 
 @section('content')
-    <div class="container">
+    <div class="border rounded my-4 p-3 container bg-light">
         <div class="title text-center my-2">
             <h1>Flower Category</h1>
         </div>
 
         <div class="row my-3">
         @foreach($data_categoryflower as $catflow)
-        <div class="card mx-auto my-2" style="width: 15rem;">
+        <div class="card mx-auto my-auto" style="width: 15rem;">
             <img class="card-img-top" src="{{asset('upload/category/' . $catflow->categoryimage)}}" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title text-center">{{$catflow->categoryname}}</h5>
