@@ -12,6 +12,7 @@
     @endif
     <div class="container mt-3 rounded">
         <div class="border rounded mx-2 my-2 p-3 bg-light">
+        <div><h1 class="mb-4 d-flex justify-content-center">Add Flower</h1></div>
         <form action="/addflower" method="POST" enctype="multipart/form-data">
         @csrf
             <div class="form-group">

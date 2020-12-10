@@ -22,7 +22,6 @@ class flower extends Controller
             'categoryid' => 'required|string',
             'flowername' => 'required|string',
             'description' => 'required|string',
-            'flowerimage' => 'required|file',
         ]);
 
         $flower = new \App\Flower();
@@ -45,23 +44,7 @@ class flower extends Controller
             ->where('id','=',Auth::id())->get();
         return view('mancat',['data_categoryflower' => $data_categoryflower,'user'=>$user]);
     }
-    public function store(Request $request)
-    {
-        $cat = new \App\Category();
-        $cat->categoryname = $request->input('categoryname');
-        if ($request ->hasfile('categoryimage')){
-            $file = $request->file('categoryimage');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
-            $file->move('upload/category/',$filename);
-            $cat->categoryimage = $filename;
-        }else{
-            return $request;
-            $cat->categoryimage = '';
-        }
-        $cat->save();
-        return redirect()->back();
-    }
+    
     public function edit($id)
     {
 
@@ -69,6 +52,7 @@ class flower extends Controller
         // passing data books yang didapat ke view edit.blade.php
         return view('edit', compact('category'));
     }
+    
     public function destroy($id)
     {
         DB::table('category')->where('categoryid',$id)->delete();
