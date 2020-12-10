@@ -11,9 +11,13 @@ use Illuminate\Support\Facades\DB;
 class UserController extends Controller
 {
     public function index(){
-        $data_categoryflower = \App\Category::all();
+        $category = \App\Category::all();
         $user = DB::table('users')->join('roletype','users.roleid','=','roletype.roleid')
-            ->where('id','=',Auth::id())->get();
-        return view('home',['data_categoryflower' => $data_categoryflower,'user'=>$user]);
+            ->where('id','=',Auth::id())->first();
+        if (Auth::guest()){
+            return view('home',['category' => $category]);
+        }else {
+            return view('home', ['category' => $category, 'user' => $user]);
+        }
     }
 }

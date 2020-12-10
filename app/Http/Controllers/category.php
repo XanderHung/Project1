@@ -10,38 +10,24 @@ class category extends Controller
 {
     public function managecategory()
     {
-        $data_categoryflower = \App\Category::all();
+        $category = \App\Category::all();
         $user = DB::table('users')->join('roletype','users.roleid','=','roletype.roleid')
-            ->where('id','=',Auth::id())->get();
-        return view('mancat',['data_categoryflower' => $data_categoryflower,'user'=>$user]);
-    }
-    public function store(Request $request)
-    {
-        $cat = new \App\Category();
-        $cat->categoryname = $request->input('categoryname');
-        if ($request ->hasfile('categoryimage')){
-            $file = $request->file('categoryimage');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
-            $file->move('upload/category/',$filename);
-            $cat->categoryimage = $filename;
-        }else{
-            return $request;
-            $cat->categoryimage = '';
+            ->where('id','=',Auth::id())->first();
+        if (Auth::guest()){
+            return view('\category\mancat',compact('category'));
+        }else {
+        return view('\category\mancat',compact('category','user'));
         }
-        $cat->save();
-        return redirect()->back();
     }
-    public function edit($id)
+    public function showeditform($id)
     {
-
         $category = DB::table('category')->where('categoryid',$id)->first();
         // passing data books yang didapat ke view edit.blade.php
-        return view('edit', compact('category'));
+        return view('\category\edit', compact('category'));
     }
     public function destroy($id)
     {
         DB::table('category')->where('categoryid',$id)->delete();
-        return redirect('/mancat')->with('success', 'Category deleted!');
+        return redirect('/mancat')->with('status', 'Category deleted!');
     }
 }

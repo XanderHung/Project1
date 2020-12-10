@@ -63,7 +63,7 @@
             ));
         document.getElementById('time').innerHTML = utc.toLocaleTimeString();
     }
-    setInterval(showTime, 1000);
+    setInterval(showTime);
 </script>
 </body>
 </html>

@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Auth;
 class Login extends Controller
 {
     public function showloginform(){
-        return view('/login');
+        $category = \App\Category::all();
+        return view('/auth/login',compact('category'));
     }
     public function login(Request $request)
     {

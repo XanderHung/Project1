@@ -21,13 +21,14 @@ Route::group([
 ],function (){
     Route::get('/addflower', 'flower@showflowerform');
     Route::post('/addflower', 'flower@flower');
+    Route::get('/manflower/{id}','flower@manflower');
     Route::get('/delflower/{id}', 'flower@destroy');
-    Route::get('/editflower/{id}','flower@edit')->name('editflower');
+    Route::get('/editflower/{id}','flower@showeditform');
     Route::get('/mancat','category@managecategory');
-    Route::get('/delcat/{id}', 'category@destroy');
-    Route::get('/editcat/{id}','category@edit')->name('editcategory');
+    Route::get('/mancat/{id}', 'category@destroy');
+    Route::get('/editcat/{id}','category@showeditform');
 });
-
+Route::get('/viewcategory/{id}','flower@viewflower');
 Route::get('/', 'UserController@index');
 Route::post('/register','register@register');
 Route::post('/login','Login@login');

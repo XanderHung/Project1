@@ -6,8 +6,6 @@
 @endsection
 @section('content')
 <div class="container">
-
-
     <div class="container mt-3 rounded">
         <div class="border rounded mx-2 my-2 p-3 bg-light">
             <div class="title text-center my-2">
@@ -17,7 +15,7 @@
             <form class="form-horizontal my-5">
                     <div class="row">
                         <div class="col-md-4">
-                        <img class="rounded mx-auto d-block" src="{{asset('upload/category/' . $category->categoryimage)}}" alt="Card image cap">
+                        <img class="rounded mx-auto d-block" src="{{asset('upload/flower/' . $category->categoryimage)}}" alt="Card image cap">
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
@@ -48,4 +46,29 @@
 </div>
 
 
+@endsection
+@section('userinfo')
+    @if(\Illuminate\Support\Facades\Auth::guest())
+    @else
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{$user->rolename}}
+            </a>
+            @if($user->rolename == 'User')
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="/viewcat">My Cart</a>
+                    <a class="dropdown-item" href="/viewcat">Transaction History</a>
+                    <a class="dropdown-item" href="/viewcat">Change Password</a>
+                    <a class="dropdown-item" href="/logout">Logout</a>
+                </div>
+            @else
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="/addflower">Add Flower</a>
+                    <a class="dropdown-item" href="/mancat">Manage Category</a>
+                    <a class="dropdown-item" href="/viewcat">Change Password</a>
+                    <a class="dropdown-item" href="/logout">Logout</a>
+                </div>
+            @endif
+        </li>
+    @endif
 @endsection

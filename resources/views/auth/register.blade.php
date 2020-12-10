@@ -1,5 +1,9 @@
 @extends('viewdef')
-
+@section('category')
+    @foreach($category as $cat)
+        <a class="dropdown-item" href="/viewcategory/{{$cat->categoryname}}">{{$cat->categoryname}}</a>
+    @endforeach
+@endsection
 @section('content')
 <div class="container">
     <div class="col-sm-offset-2 col-sm-20 well-sm">
@@ -62,3 +66,4 @@
         </form>
     </div>
 @endsection
+

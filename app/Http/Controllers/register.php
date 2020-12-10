@@ -9,7 +9,8 @@ class register extends Controller
 {
     public function showregisterform()
     {
-        return view('register');
+        $category = \App\Category::all();
+        return view('/auth/register',compact('category'));
     }
     public function register(Request $request)
     {
