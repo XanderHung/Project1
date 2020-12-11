@@ -1,5 +1,9 @@
 @extends('viewdef')
-
+@section('category')
+    @foreach($category as $cat)
+        <a class="dropdown-item" href="/viewcategory/{{$cat->categoryname}}">{{$cat->categoryname}}</a>
+    @endforeach
+@endsection
 @section('content')
 <div class="container">
     <div class="mt-5">
@@ -57,3 +61,4 @@
 })();
 </script>
 @endsection
+

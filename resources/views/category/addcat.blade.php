@@ -1,11 +1,15 @@
 @extends('viewdef')
-
+@section('category')
+    @foreach($category as $cat)
+        <a class="dropdown-item" href="/viewcategory/{{$cat->categoryname}}">{{$cat->categoryname}}</a>
+    @endforeach
+@endsection
 @section('content')
 
     <div class="container mt-3 rounded">
         <div class="border rounded mx-2 my-2 p-3 bg-light">
-        <form action="{{route('addcategory')}}" method="POST" enctype="multipart/form-data">
-        {{csrf_field()}}
+        <form action="/addcat" method="POST" enctype="multipart/form-data">
+        @csrf
         <div class="form-group">
             <label for="catname">Category Name</label>
             <input name="categoryname" type="text" class="form-control" id="catname">
@@ -22,24 +26,28 @@
 
 @endsection
 @section('userinfo')
-    @foreach($user as $users)
+    @if(\Illuminate\Support\Facades\Auth::guest())
+    @else
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{$users->rolename}}
+                {{$user->rolename}}
             </a>
-            @if($users->rolename == 'User')
+            @if($user->rolename == 'User')
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="/viewcat">My Cart</a>
+                    <a class="dropdown-item" href="/viewcat">Transaction History</a>
+                    <a class="dropdown-item" href="/viewcat">Change Password</a>
                     <a class="dropdown-item" href="/logout">Logout</a>
-                    <a class="dropdown-item" href="/viewcat">View Category</a>
                 </div>
             @else
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="/logout">Logout</a>
+                    <a class="dropdown-item" href="/addflower">Add Flower</a>
                     <a class="dropdown-item" href="/mancat">Manage Category</a>
-                    <a class="dropdown-item" href="/viewcat">View Category</a>
+                    <a class="dropdown-item" href="/viewcat">Change Password</a>
+                    <a class="dropdown-item" href="/logout">Logout</a>
                 </div>
             @endif
-
         </li>
-    @endforeach
+    @endif
 @endsection
+

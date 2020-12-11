@@ -13,8 +13,12 @@ class flower extends Controller
     public function showflowerform(){
         $category = \App\Category::all();
         $user = DB::table('users')->join('roletype','users.roleid','=','roletype.roleid')
-            ->where('id','=',Auth::id())->get();
-        return view('/addflower',compact('user','category'));
+            ->where('id','=',Auth::id())->first();
+        if (Auth::guest()){
+            return view('/flower/addflower',compact('category'));
+        }else {
+            return view('/flower/addflower', compact('user', 'category'));
+        }
     }
     public function flower(Request $request)
     {
@@ -32,30 +36,44 @@ class flower extends Controller
         $file = $request->file('flowerimage');
         $extension = $file->getClientOriginalExtension();
         $filename = time() . '.' . $extension;
-        $file->move('upload/category/',$filename);
+        $file->move('upload/flower/',$filename);
         $flower->flowerimage = $filename;
         $flower->save();
         return redirect('/addflower')->with('status', 'Flower berhasil Diinput!');
     }
-    public function managecategory()
-    {
-        $data_categoryflower = \App\Category::all();
+    public function viewflower($id){
+        $category = \App\Category::all();
         $user = DB::table('users')->join('roletype','users.roleid','=','roletype.roleid')
-            ->where('id','=',Auth::id())->get();
-        return view('mancat',['data_categoryflower' => $data_categoryflower,'user'=>$user]);
+            ->where('id','=',Auth::id())->first();
+        $selcat = DB::table('category')->where('categoryname', $id)->first();
+        $flower = \App\Flower::all();
+        if (Auth::guest()){
+            return view('/flower/viewflower', compact('category','selcat', 'flower'));
+        }else {
+            return view('/flower/viewflower', compact('category', 'user', 'selcat', 'flower'));
+        }
     }
-    
-    public function edit($id)
+    public function manflower($id){
+        $category = \App\Category::all();
+        $user = DB::table('users')->join('roletype','users.roleid','=','roletype.roleid')
+            ->where('id','=',Auth::id())->first();
+        $selcat = DB::table('category')->where('categoryname', $id)->first();
+        $flower = \App\Flower::all();
+        if (Auth::guest()){
+            return view('/flower/manflower', compact('category','selcat', 'flower'));
+        }else {
+            return view('/flower/manflower', compact('category', 'user', 'selcat', 'flower'));
+        }
+    }
+    public function showeditform($id)
     {
-
-        $category = DB::table('category')->where('categoryid',$id)->first();
+        $flower = DB::table('flower')->where('flowername',$id)->first();
         // passing data books yang didapat ke view edit.blade.php
-        return view('edit', compact('category'));
+        return view('/flower/edit', compact('flower'));
     }
-    
     public function destroy($id)
     {
-        DB::table('category')->where('categoryid',$id)->delete();
-        return redirect('/mancat')->with('success', 'Category deleted!');
+        DB::table('flower')->where('flowername',$id)->delete();
+        return redirect('/manflower')->with('status', 'Category deleted!');
     }
 }
