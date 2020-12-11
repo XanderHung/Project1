@@ -26,6 +26,7 @@ Route::group([
     Route::get('/mancat','category@managecategory');
     Route::get('/delcat/{id}', 'category@destroy');
     Route::get('/editcat/{id}','category@edit')->name('editcategory');
+    Route::get('/editpass','AdminController@changepassword');
 });
 
 Route::get('/', 'UserController@index');

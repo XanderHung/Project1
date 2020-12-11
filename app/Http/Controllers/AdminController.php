@@ -51,6 +51,10 @@ class AdminController extends Controller
     return view('edit', compact('category'));
     }
 
+    public function changepassword()
+    {
+        return view('password');
+    }
 
     public function destroy($id)
     {

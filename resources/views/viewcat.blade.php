@@ -36,7 +36,6 @@
                     <a class="dropdown-item" href="/viewcat">View Category</a>
                 </div>
             @endif
-
         </li>
     @endforeach
 @endsection
