@@ -53,7 +53,7 @@ class AdminController extends Controller
 
     public function changepassword()
     {
-        return view('password');
+        return view('/auth/reset');
     }
 
     public function destroy($id)

@@ -25,8 +25,9 @@ Route::group([
     Route::get('/delflower/{id}', 'flower@destroy');
     Route::get('/editflower/{id}','flower@showeditform');
     Route::get('/mancat','category@managecategory');
-    //Route::get('/mancat/{id}', 'category@destroy');
+    Route::get('/mancat/{id}', 'category@destroy');
     Route::get('/editcat/{id}','category@showeditform');
+    Route::get('/editpass','AdminController@changepassword');
 });
 Route::get('/viewcategory/{id}','flower@viewflower');
 Route::get('/', 'UserController@index');
