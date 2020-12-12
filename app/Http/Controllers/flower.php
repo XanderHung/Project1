@@ -73,7 +73,7 @@ class flower extends Controller
     }
     public function destroy($id)
     {
-        DB::table('flower')->where('flowername',$id)->delete();
-        return redirect('/manflower')->with('status', 'Category deleted!');
+        DB::table('flower')->where('flowerid',$id)->delete();
+        return redirect('/manflower')->with('success', 'Category deleted!');
     }
 }

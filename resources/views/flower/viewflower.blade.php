@@ -18,6 +18,10 @@
             <img class="card-img-top" src="{{asset('upload/flower/' . $catflow->flowerimage)}}" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title text-center">{{$catflow->flowername}}</h5>
+                <div class="text-center">
+                    <a href="/editflow/{{$catflow->flowerid}}" class="btn btn-primary">Update</a>
+                    <a href="/delflower/{{$catflow->flowerid}}" class="btn btn-danger">Delete</a>
+                </div>
             </div>
             </a>
         </div>
