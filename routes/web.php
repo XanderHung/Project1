@@ -27,9 +27,10 @@ Route::group([
     Route::get('/mancat','category@managecategory');
     Route::get('/mancat/{id}', 'category@destroy');
     Route::get('/editcat/{id}','category@showeditform');
-    Route::get('/editpass','AdminController@changepassword');
 });
-Route::get('/viewcategory/{id}','flower@viewflower');
+Route::get('/editpass','AdminController@changepassword');
+Route::post('/editpass','AdminController@confirchange');
+Route::get('/viewflower/{id}','flower@viewflower');
 Route::get('/', 'UserController@index');
 Route::post('/register','register@register');
 Route::post('/login','Login@login');

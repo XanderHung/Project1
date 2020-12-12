@@ -1,7 +1,11 @@
 @extends('viewdef')
 @section('category')
     @foreach($category as $cat)
-        <a class="dropdown-item" href="/viewcategory/{{$cat->categoryname}}">{{$cat->categoryname}}</a>
+        @if(\Illuminate\Support\Facades\Auth::guest() || $user->roleid == 'User')
+            <a class="dropdown-item" href="/viewflower/{{$cat->categoryname}}">{{$cat->categoryname}}</a>
+        @else
+            <a class="dropdown-item" href="/manflower/{{$cat->categoryname}}">{{$cat->categoryname}}</a>
+        @endif
     @endforeach
 @endsection
 @section('content')
@@ -19,8 +23,7 @@
             <div class="card-body">
                 <h5 class="card-title text-center">{{$catflow->flowername}}</h5>
                 <div class="text-center">
-                    <a href="/editflow/{{$catflow->flowerid}}" class="btn btn-primary">Update</a>
-                    <a href="/delflower/{{$catflow->flowerid}}" class="btn btn-danger">Delete</a>
+                    <p>{{$catflow->price}}</p>
                 </div>
             </div>
             </a>

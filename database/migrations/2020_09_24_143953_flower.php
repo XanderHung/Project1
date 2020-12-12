@@ -19,7 +19,7 @@ class Flower extends Migration
             $table->foreign('categoryid')->references('categoryid')->on('category')->onUpdate('cascade')->onDelete('cascade');
             $table->string('flowername',50);
             $table->integer('price');
-            $table->text('description');
+            $table->mediumtext('description');
             $table->mediumtext('flowerimage')->nullable();
             $table->timestamps();
         });

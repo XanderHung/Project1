@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use function Sodium\compare;
 
 class flower extends Controller
 {
@@ -74,6 +75,6 @@ class flower extends Controller
     public function destroy($id)
     {
         DB::table('flower')->where('flowerid',$id)->delete();
-        return redirect('/manflower')->with('success', 'Category deleted!');
+        return redirect()->back()->with('status', 'Flower deleted!');
     }
 }

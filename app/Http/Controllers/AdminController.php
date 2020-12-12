@@ -53,7 +53,17 @@ class AdminController extends Controller
 
     public function changepassword()
     {
-        return view('/auth/reset');
+        $category = \App\Category::all();
+        $user = DB::table('users')->join('roletype','users.roleid','=','roletype.roleid')
+            ->where('id','=',Auth::id())->first();
+        return view('/auth/reset',compact('category','user'));
+    }
+    public function confirmchange()
+    {
+        $category = \App\Category::all();
+        $user = DB::table('users')->join('roletype','users.roleid','=','roletype.roleid')
+            ->where('id','=',Auth::id())->first();
+        return redirect('/',compact('category','user'))->with('success','Password Reset!');
     }
 
     public function destroy($id)

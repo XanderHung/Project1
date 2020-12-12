@@ -22,7 +22,7 @@ class Login extends Controller
             'password'=> $password,
         ]);
         if($result === true){
-            return redirect('/');
+            return redirect('/')->with('status','Login Success!');
         }else{
             return redirect('/login?error=1');
         }
