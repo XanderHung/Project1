@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
+use Illuminate\Support\Facades\DB;
 class categoryseeder extends Seeder
 {
     /**
@@ -13,7 +13,8 @@ class categoryseeder extends Seeder
     {
         DB::table('category')->insert([
             ['categoryname'=>'Hand Bounquet(gift)','categoryimage'=>'handbonquet.jpg'],
-            ['categoryname'=>'Wedding Bonquet','categoryimage' => 'weddingbonquet.jpg'],
+            ['categoryname'=>'Wedding Bouquet','categoryimage' => 'weddingbonquet.jpg'],
+            ['categoryname'=>'Casual Bouquet','categoryimage' => 'Tulip.jpg'],
         ]);
     }
 }

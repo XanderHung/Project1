@@ -14,10 +14,10 @@ class Cart extends Migration
     public function up()
     {
         Schema::create('cart', function (Blueprint $table) {
-            $table->increments('cartid');
-            $table->integer('detailid')->unsigned();
+            $table->bigIncrements('cartid');
+            $table->bigInteger('detailid')->unsigned();
             $table->foreign('detailid')->references('id')->on('detailcart')->onUpdate('cascade')->onDelete('cascade');
-            $table->integer('flowerid')->unsigned();
+            $table->bigInteger('flowerid')->unsigned();
             $table->foreign('flowerid')->references('flowerid')->on('flower')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('Quantity');
             $table->timestamps();

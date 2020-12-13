@@ -25,7 +25,7 @@
                 <div class="card mx-auto my-2" style="width: 15rem;">
                     <img class="card-img-top" src="{{asset('upload/flower/' . $catflow->flowerimage)}}" alt="Card image cap">
                     <div class="card-body">
-                        <h5 class="card-title text-center">{{$catflow->flowername}}</h5>
+                        <h5 class="card-title text-center"><a href="/detflower/{{$catflow->flowerid}}">{{$catflow->flowername}}</a></h5>
                         <div class="text-center">
                             <a href="/editflower/{{$catflow->flowerid}}" class="btn btn-primary">Update</a>
                             <a href="/delflower/{{$catflow->flowerid}}" class="btn btn-danger">Delete</a>

@@ -54,6 +54,21 @@ class flower extends Controller
             return view('/flower/viewflower', compact('category', 'user', 'selcat', 'flower'));
         }
     }
+
+    
+    public function detailflower($id){
+        $category = \App\Category::all();
+        $user = DB::table('users')->join('roletype','users.roleid','=','roletype.roleid')
+            ->where('id','=',Auth::id())->first();
+        $selcat = DB::table('category')->where('categoryname', $id)->first();
+        $flower = DB::table('flower')->where('flowerid',$id)->first();
+        if (Auth::guest()){
+            return view('/flower/detailflower', compact('category','selcat', 'flower'));
+        }else {
+            return view('/flower/detailflower', compact('category', 'user', 'selcat', 'flower'));
+        }
+    }
+
     public function manflower($id){
         $category = \App\Category::all();
         $user = DB::table('users')->join('roletype','users.roleid','=','roletype.roleid')
@@ -68,9 +83,17 @@ class flower extends Controller
     }
     public function showeditform($id)
     {
-        $flower = DB::table('flower')->where('flowername',$id)->first();
+        $category = \App\Category::all();
+        $user = DB::table('users')->join('roletype','users.roleid','=','roletype.roleid')
+            ->where('id','=',Auth::id())->first();
+        $selcat = DB::table('category')->where('categoryid', $id)->first();
+        $flower = DB::table('flower')->where('flowerid',$id)->first();
         // passing data books yang didapat ke view edit.blade.php
-        return view('/flower/edit', compact('flower'));
+        if (Auth::guest()){
+            return view('/flower/edit', compact('category','selcat', 'flower'));
+        }else {
+            return view('/flower/edit', compact('category', 'user', 'selcat', 'flower'));
+        }
     }
     public function destroy($id)
     {

@@ -18,15 +18,14 @@
         @foreach($flower as $catflow)
             @if($catflow->categoryid === $selcat->categoryid)
         <div class="card mx-auto my-auto" style="width: 15rem;">
-            <a href="/detailflower/{{$catflow->flowername}}">
-            <img class="card-img-top" src="{{asset('upload/flower/' . $catflow->flowerimage)}}" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title text-center">{{$catflow->flowername}}</h5>
+        <a href="/detailflower/{{$catflow->flowerid}}" class="card-title text-center">    
+        <img class="card-img-top" src="{{asset('upload/flower/' . $catflow->flowerimage)}}" alt="Card image cap">
+            <div class="card-body text-center">
                 <div class="text-center">
-                    <p>{{$catflow->price}}</p>
+                    <p>{{$catflow->flowername}}<br>{{$catflow->price}}</p>
                 </div>
             </div>
-            </a>
+        </a>
         </div>
                 @endif
             @endforeach

@@ -23,11 +23,13 @@ Route::group([
     Route::post('/addflower', 'flower@flower');
     Route::get('/manflower/{id}','flower@manflower');
     Route::get('/delflower/{id}', 'flower@destroy');
+    Route::get('/detflower/{id}', 'flower@detailflower');
     Route::get('/editflower/{id}','flower@showeditform');
     Route::get('/mancat','category@managecategory');
     Route::get('/mancat/{id}', 'category@destroy');
     Route::get('/editcat/{id}','category@showeditform');
 });
+Route::get('/detailflower/{id}','flower@detailflower');
 Route::get('/editpass','AdminController@changepassword');
 Route::post('/editpass','AdminController@confirchange');
 Route::get('/viewflower/{id}','flower@viewflower');
