@@ -60,7 +60,7 @@
             </a>
             @if($user->rolename == 'User')
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="/viewcat">My Cart</a>
+                    <a class="dropdown-item" href="/viewcart">My Cart</a>
                     <a class="dropdown-item" href="/viewcat">Transaction History</a>
                     <a class="dropdown-item" href="/editpass">Change Password</a>
                     <a class="dropdown-item" href="/logout">Logout</a>
