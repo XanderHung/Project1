@@ -63,7 +63,7 @@ class flower extends Controller
         $selcat = DB::table('category')->where('categoryname', $id)->first();
         $flower = DB::table('flower')->where('flowerid',$id)->first();
         if (Auth::guest()){
-            return view('/flower/detailflower', compact('category','selcat', 'flower'));
+            return view('/flower/detailflower', compact('category','selcat', 'user','flower'));
         }else {
             return view('/flower/detailflower', compact('category', 'user', 'selcat', 'flower'));
         }
@@ -95,6 +95,34 @@ class flower extends Controller
             return view('/flower/edit', compact('category', 'user', 'selcat', 'flower'));
         }
     }
+
+    public function update(Request $request,$id) 
+    {
+    
+    $category = \App\Category::all();
+    $user = DB::table('users')->join('roletype','users.roleid','=','roletype.roleid')
+            ->where('id','=',Auth::id())->first();
+    $selcat = DB::table('category')->where('categoryid', $request->categoryid)->first();
+    $data=array();
+    $data['categoryid'] = $request->categoryid;
+    $data['flowername'] = $request->flowername;
+    $data['description'] = $request->description;
+    $data['price'] = $request->price;
+    $data['flowerimage'] = $request->file('flowerimage');
+    
+    $file = $request->file('flowerimage');
+    $extension = $file->getClientOriginalExtension();
+    $filename = time() . '.' . $extension;
+    $file->move('upload/flower/',$filename);
+    $data['flowerimage'] = $filename;
+    $flower = DB::table('Flower')->where('flowerid',$id)->update($data);
+    if (Auth::guest()){
+        return view('/flower/manflower', compact('category','selcat', 'flower'));
+    }else {
+        return redirect()->back()->with('status', 'Flower Updated!');
+    }
+}
+
     public function destroy($id)
     {
         DB::table('flower')->where('flowerid',$id)->delete();

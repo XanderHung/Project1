@@ -27,7 +27,7 @@
                         <h5 class="card-title text-center">{{$catflow->categoryname}}</h5>
                         <div class="text-center">
                             <a href="/editcat/{{$catflow->categoryid}}" class="btn btn-primary">Update</a>
-                            <a href="/mancat/{{$catflow->categoryid}}" class="btn btn-danger">Delete</a>
+                            <a href="/delcat/{{$catflow->categoryid}}" class="btn btn-danger">Delete</a>
                         </div>
                     </div>
                 </div>

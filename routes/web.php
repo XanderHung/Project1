@@ -25,8 +25,9 @@ Route::group([
     Route::get('/delflower/{id}', 'flower@destroy');
     Route::get('/detflower/{id}', 'flower@detailflower');
     Route::get('/editflower/{id}','flower@showeditform');
+    Route::post('/updateflower/{id}','flower@update');
     Route::get('/mancat','category@managecategory');
-    Route::get('/mancat/{id}', 'category@destroy');
+    Route::get('/delcat/{id}', 'category@destroy');
     Route::get('/editcat/{id}','category@showeditform');
 });
 Route::get('/detailflower/{id}','flower@detailflower');

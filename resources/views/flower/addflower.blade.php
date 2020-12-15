@@ -42,7 +42,7 @@
             <textarea rows="2" cols="50" name="description"></textarea>
         </div>
         <div class="form-group">
-            <label for="flowerimage">Category Image</label>
+            <label for="flowerimage">Flower Image</label>
             <input name="flowerimage" type="file" class="form-control-file" id="flowerimage">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>

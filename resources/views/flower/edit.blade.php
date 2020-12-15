@@ -9,30 +9,58 @@
     @endforeach
 @endsection
 @section('content')
+@if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
 <div class="container">
     <div class="container mt-3 rounded">
         <div class="border rounded mx-2 my-2 p-3 bg-light">
             <div class="title text-center my-2">
                     <h1>Edit Flower</h1>
             </div>
-
-            <form class="form-horizontal my-5">
+            
+            <form action="{{ url('/updateflower/'.$flower->flowerid) }}" method="POST" enctype="multipart/form-data" class="form-horizontal my-5">
+            
                     <div class="row">
                         <div class="col-md-4">
-                        <img class="rounded mx-auto d-block" src="{{asset('upload/flower/' . $flower->flowerimage)}}" alt="Card image cap">
+                            <img class="img-thumbnail rounded mx-auto d-block" src="{{asset('upload/flower/' . $flower->flowerimage)}}" alt="Card image cap">
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4">  
+                        @csrf
                             <div class="form-group">
-                                <label class="control-label col-sm-7" for="catname">Flower Name</label>
+                                <label class="control-label col-sm-7" for="category">Category</label>
                                 <div class="col-sm-12">
-                                    <input type="text" class="form-control" id="catname" placeholder="Flower Name">
+                                    <select class="form-control" id="category" name="categoryid">
+                                            @foreach($category as $cat)
+                                            <option value="{{$cat->categoryid}}">{{$cat->categoryname}}</option>
+                                            @endforeach
+                                    </select>
                                 </div>
                             </div>
-
                             <div class="form-group">
-                                <label class="control-label col-sm-7" for="catimage">Flower Image</label>
+                                <label class="control-label col-sm-7" for="flowername">Flower Name</label>
                                 <div class="col-sm-12">
-                                    <input name="categoryimage" type="file" class="form-control-file" id="catimage">
+                                    <input type="text" class="form-control" name="flowername" id="flowername" placeholder="Flower Name" value="{{$flower->flowername}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-7" for="price">Flower Price</label>
+                                <div class="col-sm-12">
+                                    <input name="price" type="number" class="form-control" id="price" min="50000" value="{{$flower->price}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-7" for="description">Description</label><br>
+                                <div class="col-sm-12">
+                                <textarea rows="2" cols="50" name="description" id="description">{{$flower->description}}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-7" for="flowerimage">Flower Image</label>
+                                <div class="col-sm-12">
+                                    <input name="flowerimage" type="file" class="form-control-file" id="flowerimage">
                                 </div>
                             </div>
                             <div class="col-sm-12">
@@ -40,7 +68,6 @@
                             </div>
                         </div>
                     </div>
-
             </form>
         </div>
     </div>

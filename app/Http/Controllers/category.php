@@ -13,21 +13,30 @@ class category extends Controller
         $category = \App\Category::all();
         $user = DB::table('users')->join('roletype','users.roleid','=','roletype.roleid')
             ->where('id','=',Auth::id())->first();
+        //$selcat = DB::table('category')->where('categoryname', $id)->first();
+        $flower = \App\Flower::all();
+
         if (Auth::guest()){
-            return view('\category\mancat',compact('category'));
+            return view('\category\mancat', compact('category','selcat', 'flower'));
         }else {
-        return view('\category\mancat',compact('category','user'));
+            return view('\category\mancat', compact('category', 'user', 'selcat', 'flower'));
         }
     }
     public function showeditform($id)
     {
-        $category = DB::table('category')->where('categoryid',$id)->first();
+        $category =DB::table('category')->where('categoryid',$id)->first();
+        $user = DB::table('users')->join('roletype','users.roleid','=','roletype.roleid')
+            ->where('id','=',Auth::id())->first();
         // passing data books yang didapat ke view edit.blade.php
-        return view('\category\edit', compact('category'));
+        if (Auth::guest()){
+            return view('\category\mancat', compact('category'));
+        }else {
+            return view('\category\mancat', compact('category', 'user'));
+        }
     }
     public function destroy($id)
     {
-        DB::table('category')->where('categoryid',$id)->delete();
+        DB::table('Category')->where('categoryid',$id)->delete();
         return redirect('/mancat')->with('status', 'Category deleted!');
     }
 }
