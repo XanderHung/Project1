@@ -21,7 +21,7 @@
             <form class="form-horizontal my-5">
                     <div class="row">
                         <div class="col-md-4">
-                        <img class="rounded mx-auto d-block" src="{{asset('upload/category/' . $category->categoryimage)}}" alt="Card image cap">
+                        <img class="rounded mx-auto d-block" src="{{asset('upload/category/' . $selcat->categoryimage)}}" alt="Card image cap">
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">

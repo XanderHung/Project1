@@ -18,4 +18,14 @@ class Cart extends Controller
             return view('/transaction/cart', compact('user','category'));
         }
     }
+    public function addcart($id){
+        $flower = DB::table('flower')->where('flowerid',$id)->first();
+        if(!$flower){
+            abort(404);
+        }
+        $cart = session()->get('cart');
+
+    }
+
+
 }

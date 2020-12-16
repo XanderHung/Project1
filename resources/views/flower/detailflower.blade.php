@@ -22,8 +22,7 @@
                                 <p class="text-success">Rp{{$flower->price}},-</p> <br>
                                 <p class="text-muted">{{$flower->description}}</p>
                         </div>
-                        @if($user->roleid == 1)
-                        <form>
+                        <form action="/detailflower/{{$flower->flowerid}}" method="POST" enctype="multipart/form-data">
                         <div class="form-row align-items-center">
                             <div class="col-auto my-1">
                             <div class="custom-control">
@@ -32,9 +31,8 @@
                             </div>
                             <div class="col-auto my-1">
                             <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
-                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                                <option selected>1</option>
-                                <option value="1">1</option>
+                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="quantity">
+                                <option value="1" selected>1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
@@ -46,7 +44,6 @@
                             </div>
                         </div>
                         </form>
-                        @endif
                     </div>
             </div>
         </div>
