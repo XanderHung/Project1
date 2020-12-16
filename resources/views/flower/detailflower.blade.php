@@ -1,7 +1,7 @@
 @extends('viewdef')
 @section('category')
     @foreach($category as $cat)
-        @if(\Illuminate\Support\Facades\Auth::guest() || $user->roleid == 'User')
+        @if(\Illuminate\Support\Facades\Auth::guest() || $user->rolename == 'User')
             <a class="dropdown-item" href="/viewflower/{{$cat->categoryname}}">{{$cat->categoryname}}</a>
         @else
             <a class="dropdown-item" href="/manflower/{{$cat->categoryname}}">{{$cat->categoryname}}</a>
@@ -22,7 +22,7 @@
                                 <p class="text-success">Rp{{$flower->price}},-</p> <br>
                                 <p class="text-muted">{{$flower->description}}</p>
                         </div>
-                        <form action="/detailflower/{{$flower->flowerid}}" method="GET" enctype="multipart/form-data">
+                        <form>
                         <div class="form-row align-items-center">
                             <div class="col-auto my-1">
                             <div class="custom-control">

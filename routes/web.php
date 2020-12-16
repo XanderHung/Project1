@@ -31,6 +31,8 @@ Route::group([
     Route::get('/editcat/{id}','category@showeditform');
 });
 Route::get('/detailflower/{id}','flower@detailflower');
+Route::get('/cart','cart@viewcart');
+Route::get('/addtocart/{id}','cart@addtocart');
 Route::get('/editpass','AdminController@changepassword');
 Route::post('/editpass','AdminController@confirchange');
 Route::get('/viewflower/{id}','flower@viewflower');

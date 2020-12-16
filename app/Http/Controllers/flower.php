@@ -55,7 +55,7 @@ class flower extends Controller
         }
     }
 
-    
+
     public function detailflower($id){
         $category = \App\Category::all();
         $user = DB::table('users')->join('roletype','users.roleid','=','roletype.roleid')
@@ -96,9 +96,9 @@ class flower extends Controller
         }
     }
 
-    public function update(Request $request,$id) 
+    public function update(Request $request,$id)
     {
-    
+
     $category = \App\Category::all();
     $user = DB::table('users')->join('roletype','users.roleid','=','roletype.roleid')
             ->where('id','=',Auth::id())->first();
@@ -109,7 +109,7 @@ class flower extends Controller
     $data['description'] = $request->description;
     $data['price'] = $request->price;
     $data['flowerimage'] = $request->file('flowerimage');
-    
+
     $file = $request->file('flowerimage');
     $extension = $file->getClientOriginalExtension();
     $filename = time() . '.' . $extension;
