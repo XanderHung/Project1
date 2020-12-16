@@ -24,8 +24,13 @@ class Cart extends Controller
             abort(404);
         }
         $cart = session()->get('cart');
-
+        // if cart is empty then this the first product
+        $cart["id"] = [
+            
+            "flowername"=> $flower->flowername,
+            "categoryid"=> $flower->categoryid
+        ];
+        session(["cart"=>$cart]);
+        return redirect('/viewcart');
     }
-
-
 }

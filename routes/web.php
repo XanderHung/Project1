@@ -42,4 +42,5 @@ Route::get('/login','Login@showloginform');
 Route::get('/viewcat','UserController@viewcategory');
 Route::get('/register','register@showregisterform');
 Route::get('/viewcart','Cart@viewcart');
+Route::get('/addtocart/{id}','Cart@addcart');
 

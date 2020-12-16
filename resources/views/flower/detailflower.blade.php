@@ -22,7 +22,7 @@
                                 <p class="text-success">Rp{{$flower->price}},-</p> <br>
                                 <p class="text-muted">{{$flower->description}}</p>
                         </div>
-                        <form action="/detailflower/{{$flower->flowerid}}" method="POST" enctype="multipart/form-data">
+                        <form action="/detailflower/{{$flower->flowerid}}" method="GET" enctype="multipart/form-data">
                         <div class="form-row align-items-center">
                             <div class="col-auto my-1">
                             <div class="custom-control">
@@ -40,7 +40,9 @@
                             </select>
                             </div>
                             <div class="col-auto my-1">
-                            <button type="submit" class="btn btn-primary">Add to Cart</button>
+                                <button type="submit" class="btn btn-primary">
+                                <a class="text-white" href="/addtocart/{{$flower->flowerid}}">Add to Cart</a>
+                                </button>
                             </div>
                         </div>
                         </form>

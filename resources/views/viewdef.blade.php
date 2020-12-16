@@ -61,7 +61,9 @@
                 date.getMinutes(),
                 date.getSeconds()
             ));
+        document.getElementById('time').style.color = "white";
         document.getElementById('time').innerHTML = utc.toLocaleTimeString();
+        
     }
     setInterval(showTime);
 </script>
