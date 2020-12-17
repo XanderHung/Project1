@@ -61,4 +61,17 @@ class Cart extends Controller
             }
         }
     }
+
+    public function remove($id)
+    {
+        $name = DB::table('flower')->where('flowername',$id)->pluck('flowerid')->first();
+        $cart = session()->get('cart');
+            if(isset($cart[$name])) {
+                unset($cart[$name]);
+                session()->put('cart', $cart);
+            }
+            session()->flash('success', 'Product removed successfully');
+        
+        return redirect()->back();
+    }
 }

@@ -14,7 +14,7 @@
         <div class="border rounded mx-2 my-2 p-3 bg-light">
             <div class="row">
                     <div class="col-md-6">
-                                    <img class="card mx-auto my-auto" style="width: 15rem;" src="{{asset('upload/flower/' . $flower->flowerimage)}}" alt="Card image cap">
+                            <img class="card mx-auto my-auto" style="width: 15rem;" src="{{asset('upload/flower/' . $flower->flowerimage)}}" alt="Card image cap">
                     </div>
                     <div class="col-md-6">
                         <div class="title text-left my-2">
