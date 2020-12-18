@@ -98,11 +98,6 @@ class flower extends Controller
 
     public function update(Request $request,$id)
     {
-
-    $category = \App\Category::all();
-    $user = DB::table('users')->join('roletype','users.roleid','=','roletype.roleid')
-            ->where('id','=',Auth::id())->first();
-    $selcat = DB::table('category')->where('categoryid', $request->categoryid)->first();
     $data=array();
     $data['categoryid'] = $request->categoryid;
     $data['flowername'] = $request->flowername;
@@ -115,12 +110,8 @@ class flower extends Controller
     $filename = time() . '.' . $extension;
     $file->move('upload/flower/',$filename);
     $data['flowerimage'] = $filename;
-    $flower = DB::table('Flower')->where('flowerid',$id)->update($data);
-    if (Auth::guest()){
-        return view('/flower/manflower', compact('category','selcat', 'flower'));
-    }else {
+    DB::table('Flower')->where('flowerid',$id)->update($data);
         return redirect()->back()->with('status', 'Flower Updated!');
-    }
 }
 
     public function destroy($id)

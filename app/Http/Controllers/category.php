@@ -22,8 +22,23 @@ class category extends Controller
         $user = DB::table('users')->join('roletype','users.roleid','=','roletype.roleid')
             ->where('id','=',Auth::id())->first();
         $category = \App\Category::all();
-        // passing data books yang didapat ke view edit.blade.php
         return view('/category/edit',compact('selcat','user','category'));
+    }
+    public function update(Request $request,$id){
+        $data=array();
+        $data['categoryname']= $request->input('categoryname');
+        if ($request ->hasfile('categoryimage')){
+        $file = $request->file('categoryimage');
+        $extension = $file->getClientOriginalExtension();
+        $filename = time() . '.' . $extension;
+        $file->move('upload/flower/', $filename);
+        $data['categoryimage'] = $filename;
+        }else{
+            $data['categoryimage'] = DB::table('category')->where('categoryid',$id)->pluck('categoryimage')->first();
+        }
+
+        DB::table('category')->where('categoryid',$id)->update($data);
+        return redirect()->back()->with('status','Category Updated!');
     }
     public function destroy($id)
     {

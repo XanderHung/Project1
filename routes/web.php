@@ -29,12 +29,13 @@ Route::group([
     Route::get('/mancat','category@managecategory');
     Route::get('/delcat/{id}', 'category@destroy');
     Route::get('/editcat/{id}','category@showeditform');
+    Route::post('/updatecategory/{id}','category@update');
 });
 Route::get('/detailflower/{id}','flower@detailflower');
 Route::get('/cart','cart@viewcart');
 Route::get('/addtocart/{id}','cart@addtocart');
 Route::get('/editpass','AdminController@changepassword');
-Route::post('/editpass','AdminController@confirchange');
+Route::post('/editpass','AdminController@confirmchange');
 Route::get('/viewflower/{id}','flower@viewflower');
 Route::get('/', 'UserController@index');
 Route::post('/register','register@register');

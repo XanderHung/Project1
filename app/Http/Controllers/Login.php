@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use http\Cookie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,12 +17,16 @@ class Login extends Controller
     {
         $email= $request->input('email');
         $password = $request->input('password');
-
+        $remember = $request->input('remember');
         $result =Auth::attempt([
             'email'=> $email,
             'password'=> $password,
         ]);
+
         if($result === true){
+            if($remember){
+                \Illuminate\Support\Facades\Cookie::queue('rememberEmail',$email);
+            }
             return redirect('/')->with('status','Login Success!');
         }else{
             return redirect('/login?error=1');
@@ -31,4 +36,5 @@ class Login extends Controller
         Auth::logout();
         return redirect('/');
     }
+
 }

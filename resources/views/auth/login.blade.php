@@ -19,7 +19,7 @@
             <div class="form-group">
                 <label class="control-label" for="email">E-mail address</label>
                 <div>
-                <input type="email" class="form-control" id="email" placeholder="Email" name="email" required>
+                <input type="email" class="form-control" id="email" placeholder="Email" name="email"  value="{{\Illuminate\Support\Facades\Cookie::get('rememberEmail')}}" required>
                 <div class="valid-feedback">Valid.</div>
                 <div class="invalid-feedback">Please fill out this field.</div>
                 </div>
