@@ -88,8 +88,9 @@ class Cart extends Controller
             DB::table('cart')->join('flower', 'cart.flowerid', '=', 'flower.flowerid')
                 ->join('detailcart', 'detailcart.detailid', '=', 'cart.detailid')
                 ->where('flowername', $id)->orWhere('userid', Auth::id())
-                ->orWhere('done', false)->update(['quantity' => $request->quantity]);
+                ->orWhere('done', false)->first()->update(['quantity' => $request->quantity]);
         }
+        return redirect()->back();
     }
 
     public function remove($id)
