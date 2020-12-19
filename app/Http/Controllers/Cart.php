@@ -2,63 +2,93 @@
 
 namespace App\Http\Controllers;
 
+use App\detailcart;
 use App\history;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
 class Cart extends Controller
 {
     public function viewcart(){
         $category = \App\Category::all();
         $user = DB::table('users')->join('roletype','users.roleid','=','roletype.roleid')
             ->where('id','=',Auth::id())->first();
-            return view('/transaction/cart', compact('user','category'));
+        $cart = DB::table('detailcart')->join('cart','detailcart.detailid','=','cart.detailid')
+            ->join('flower','cart.flowerid','=','flower.flowerid')
+            ->where('userid',Auth::id())->orWhere('done',false)
+            ->get(['flowername','flowerimage','price','quantity']);
+        return view('/transaction/cart', compact('user','category','cart'));
     }
-    public function addcart($id){
-        $flower = DB::table('flower')->where('flowerid',$id)->first();
-        if(!$flower){
-            abort(404);
-        }
-        $cart = session()->get('cart');
-        if(!$cart) {
-            $cart = [
-                $id => [
-                    "name" => $flower->flowername,
-                    "quantity" => 1,
-                    "price" => $flower->price,
-                    "photo" => $flower->flowerimage
-                ]
-            ];
-            session()->put('cart', $cart);
-            return redirect()->back()->with('success', 'Product added to cart successfully!');
-        }
-        // if cart not empty then check if this product exist then increment quantity
-        if(isset($cart[$id])) {
-            $cart[$id]['quantity']++;
-            session()->put('cart', $cart);
-            return redirect()->back()->with('success', 'Product added to cart successfully!');
-        }
-        // if item not exist in cart then add to cart with quantity = 1
-        $cart[$id] = [
-            "name" => $flower->flowername,
-            "quantity" => 1,
-            "price" => $flower->price,
-            "photo" => $flower->flowerimage
-        ];
-        session()->put('cart', $cart);
-        return redirect()->back()->with('success', 'Product added to cart successfully!');
-    }
-
-    public function checkout(Request $request){
-        $history = new history;
-        $history->userid = Auth::id();
-        $flower = DB::table('flower')->pluck('flowerid');
-        $cart = session()->get('cart');
-        for ($i=1;$i<=count($flower);$i++){
-            if(isset($cart[$flower])){
-
+    public function addcart($id,Request $request){
+        $request->validate(['quantity'=>'required:0|numeric']);
+        if(!DB::table('detailcart')->where('userid',Auth::id())->first()|| !DB::table('detailcart')->where('done',false and
+                'userid',Auth::id())->first()){
+            $detailcart = new detailcart;
+            $detailcart->userid = Auth::id();
+            $detailcart->done = false;
+            $detailcart->save();
+            $cart = new \App\cart();
+            $cart->detailid = $detailcart->id;
+            $cart->flowerid = $id;
+            $cart->quantity = $request->input('quantity');
+            $cart->save();
+        }else{
+            $quantity = DB::table('detailcart')->join('cart','detailcart.detailid','=','cart.detailid')->where('userid',Auth::id() and 'done',false)->orWhere('flowerid',$id)->pluck('quantity')
+                ->first()+$request->input('quantity');
+            $flower = DB::table('detailcart')->join('cart','detailcart.detailid','=','cart.detailid')->where('userid',Auth::id() and 'done',false)->orWhere('flowerid',$id)->pluck('flowerid')
+                ->first();
+            if($flower){
+                DB::table('cart')->join('detailcart','cart.detailid','=','detailcart.detailid')->where('userid',Auth::id() and 'done',false)->orWhere('flowerid',$id)
+                    ->update(['quantity'=>$quantity]);
+            }else{
+                $cart = new \App\cart();
+                $cart->detailid = DB::table('detailcart')
+                    ->where('userid',Auth::id())->orWhere('done',false)
+                    ->pluck('detailid')->first();
+                $cart->flowerid = $id;
+                $cart->quantity = $request->input('quantity');
+                $cart->save();
             }
+        }
+//        if(!$cart) {
+//            $cart = [
+//                $id => [
+//                    "name" => $flower->flowername,
+//                    "quantity" => 1,
+//                    "price" => $flower->price,
+//                    "photo" => $flower->flowerimage
+//                ]
+//            ];
+//            session()->put('cart', $cart);
+//            return redirect()->back()->with('success', 'Product added to cart successfully!');
+//        }
+//        // if cart not empty then check if this product exist then increment quantity
+//        if(isset($cart[$id])) {
+//            $cart[$id]['quantity']++;
+//            session()->put('cart', $cart);
+//            return redirect()->back()->with('success', 'Product added to cart successfully!');
+//        }
+//        // if item not exist in cart then add to cart with quantity = 1
+//        $cart[$id] = [
+//            "name" => $flower->flowername,
+//            "quantity" => 1,
+//            "price" => $flower->price,
+//            "photo" => $flower->flowerimage
+//        ];
+//        session()->put('cart', $cart);
+        return redirect()->back()->with('status', 'Product added to cart successfully!');
+    }
+    public function update(Request $request,$id){
+        if($request->quantity ==0){
+            DB::table('cart')->join('flower','cart.flowerid','=','flower.flowerid')
+                ->join('detailcart','detailcart.detailid','=','cart.detailid')
+                ->where('flowername',$id)->orWhere('userid',Auth::id())
+                ->orWhere('done',false)->delete();
+        }else {
+            DB::table('cart')->join('flower', 'cart.flowerid', '=', 'flower.flowerid')
+                ->join('detailcart', 'detailcart.detailid', '=', 'cart.detailid')
+                ->where('flowername', $id)->orWhere('userid', Auth::id())
+                ->orWhere('done', false)->update(['quantity' => $request->quantity]);
         }
     }
 
@@ -71,7 +101,7 @@ class Cart extends Controller
                 session()->put('cart', $cart);
             }
             session()->flash('success', 'Product removed successfully');
-        
+
         return redirect()->back();
     }
 }

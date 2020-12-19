@@ -15,11 +15,11 @@ class Cart extends Migration
     {
         Schema::create('cart', function (Blueprint $table) {
             $table->bigIncrements('cartid');
-            $table->bigInteger('detailid')->unsigned();
-            $table->foreign('detailid')->references('id')->on('detailcart')->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('detailid')->unsigned();
+            $table->foreign('detailid')->references('detailid')->on('detailcart')->onUpdate('cascade')->onDelete('cascade');
             $table->bigInteger('flowerid')->unsigned();
             $table->foreign('flowerid')->references('flowerid')->on('flower')->onUpdate('cascade')->onDelete('cascade');
-            $table->integer('Quantity');
+            $table->integer('quantity');
             $table->timestamps();
         });
     }

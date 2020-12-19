@@ -9,7 +9,11 @@
     @endforeach
 @endsection
 @section('content')
-
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
     <div class="container mt-3 rounded">
         <div class="border rounded mx-2 my-2 p-3 bg-light">
             <div class="row">
@@ -22,26 +26,28 @@
                                 <p class="text-success">Rp{{$flower->price}},-</p> <br>
                                 <p class="text-muted">{{$flower->description}}</p>
                         </div>
-                        <form>
-                        <div class="form-row align-items-center">
+                        <form action="/addtocart/{{$flower->flowerid}}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                            <div class="form-row align-items-center">
                             <div class="col-auto my-1">
                             <div class="custom-control">
-                               <h5 class="text-left">Quantity</h5>
+                               <h5>Quantity</h5>
                             </div>
                             </div>
                             <div class="col-auto my-1">
                             <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
-                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="quantity">
-                                <option value="1" selected>1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
+                                <input name="quantity" type="number" class="col-sm-4 form-control" id="flowerprice" min="0" value="1">
+{{--                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="quantity">--}}
+{{--                                <option value="1" selected>1</option>--}}
+{{--                                <option value="2">2</option>--}}
+{{--                                <option value="3">3</option>--}}
+{{--                                <option value="4">4</option>--}}
+{{--                                <option value="5">5</option>--}}
+{{--                            </select>--}}
                             </div>
                             <div class="col-auto my-1">
                                 <button type="submit" class="btn btn-primary">
-                                <a class="text-white" href="/addtocart/{{$flower->flowerid}}">Add to Cart</a>
+                                Add to Cart
                                 </button>
                             </div>
                         </div>

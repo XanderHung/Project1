@@ -14,9 +14,10 @@ class Detailcart extends Migration
     public function up()
     {
         Schema::create('detailcart', function (Blueprint $table) {
-            $table->id();
+            $table->increments('detailid');
             $table->bigInteger('userid')->unsigned();
             $table->foreign('userid')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->boolean('done');
             $table->timestamps();
         });
     }
