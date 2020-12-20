@@ -9,6 +9,11 @@
     @endforeach
 @endsection
 @section('content')
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
 <div class="container">
 
 
@@ -18,8 +23,9 @@
                     <h1>Edit Category</h1>
             </div>
 
-            <form class="form-horizontal my-5">
-                    <div class="row">
+            <form action={{url('/updatecategory/'.$selcat->categoryid)}} method="POST" enctype="multipart/form-data" class="form-horizontal my-5">
+                @csrf
+                <div class="row">
                         <div class="col-md-4">
                         <img class="img-thumbnail rounded mx-auto d-block" src="{{asset('upload/category/' . $selcat->categoryimage)}}" alt="Card image cap">
                         </div>
@@ -27,7 +33,7 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-7" for="catname">Category Name</label>
                                 <div class="col-sm-12">
-                                    <input type="text" class="form-control" id="catname" placeholder="Category Name">
+                                    <input type="text" class="form-control" id="catname" placeholder="Category Name" name="categoryname" value="{{$selcat->categoryname}}">
                                 </div>
                             </div>
 

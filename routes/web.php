@@ -29,12 +29,13 @@ Route::group([
     Route::get('/mancat','category@managecategory');
     Route::get('/delcat/{id}', 'category@destroy');
     Route::get('/editcat/{id}','category@showeditform');
+    Route::post('/updatecategory/{id}','category@update');
 });
 Route::get('/detailflower/{id}','flower@detailflower');
 Route::get('/cart','cart@viewcart');
 Route::get('/addtocart/{id}','cart@addtocart');
 Route::get('/editpass','AdminController@changepassword');
-Route::post('/editpass','AdminController@confirchange');
+Route::post('/editpass','AdminController@confirmchange');
 Route::get('/viewflower/{id}','flower@viewflower');
 Route::get('/', 'UserController@index');
 Route::post('/register','register@register');
@@ -44,6 +45,6 @@ Route::get('/login','Login@showloginform');
 Route::get('/viewcat','UserController@viewcategory');
 Route::get('/register','register@showregisterform');
 Route::get('/viewcart','Cart@viewcart');
-Route::get('/addtocart/{id}','Cart@addcart');
-Route::get('/removeitemcart/{id}','Cart@remove');
+Route::post('addtocart/{id}','Cart@addcart');
+Route::post('/updatecart/{id}','Cart@update');
 
