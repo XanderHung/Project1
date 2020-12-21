@@ -22,89 +22,55 @@
       <!-- Card -->
       <div class="card wish-list mb-3">
         <div class="card-body">
-
-        <h5 class="mb-4">Cart ( <span>{{$cart->count()}}</span>items)</h5>
-          @foreach($cart as $carts)
+            <h5 class="mb-4">Cart (<span>{{ count((array) session('cart')) }}</span> items)</h5>
+            @if(session('cart'))
+            @foreach(session('cart') as $id => $details)
           <div class="row mb-4">
             <div class="col-md-5 col-lg-3 col-xl-3">
               <div class="view zoom overlay z-depth-1 rounded mb-3 mb-md-0">
                   <div class="mask waves-effect waves-light">
-                  <img class="card mx-auto my-auto" style="width: 15rem;" src="{{asset('upload/flower/'.$carts->flowerimage) }}">
+                  <img class="card mx-auto my-auto" style="width: 15rem;" src="{{asset('upload/flower/'.$details['photo'])}}">
                     <div class="mask rgba-black-slight waves-effect waves-light"></div>
                   </div>
                 </a>
               </div>
             </div>
             <div class="col-md-7 col-lg-9 col-xl-9">
-              <form action="/updatecart/{{$carts->flowername}}" method="POST" enctype="multipart/form-data">
-              @csrf
-                  <div>
+                <div class="con">
                 <div class="d-flex justify-content-between">
                   <div>
-                    <h5>{{ $carts->flowername}}</h5>
+                      <h5>{{ $details['name'] }}</h5>
                   </div>
                   <div>
                     <div class="def-number-input number-input safari_only mb-0 w-100">
-                      <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                        class="minus"></button>
-                      <input class="quantity" min="0" name="quantity" value="{{ $carts->quantity }}" type="number">
-                      <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                        class="plus"></button>
+                      <input id="quantity" class="quantity" min="0" name="quantity" value="{{ $details['quantity'] }}" type="number">
                     </div>
                     <small id="passwordHelpBlock" class="form-text text-muted text-center">
-                    {{ $carts->quantity }}
+                        {{ $details['quantity'] }}
                     </small>
                   </div>
                 </div>
                 <div class="d-flex justify-content-between align-items-center">
-                  <p class="mb-0"><span><strong>Rp{{ $carts->price * $carts->quantity}},-</strong></span></p>
+                  <p class="mb-0"><span><strong>Rp{{ $details['price'] * $details['quantity']}},-</strong></span></p>
                   <div class="form-group">
-                      <button type="submit" class="btn btn-success">Update</button>
+                      <button class="btn btn-success update" data-id="{{$id}}">Update</button>
                   </div>
                 </div>
               </div>
-              </form>
+
             </div>
           </div>
           @endforeach
+                @endif
+
         </div>
       </div>
         <div class="container col-sm-auto mt-2">
-            <button class="btn btn-success btn-lg btn-block">Checkout</button>
+            <a href="/checkout"><button class="btn btn-success btn-lg btn-block">Checkout</button></a>
         </div>
     </div>
   </div>
-
-
-<!--Section: Block Content-->
-    <!-- <div class="container mt-3 rounded">
-        <div class="border rounded mx-2 my-2 p-3 bg-light">
-            <div class="title text-center my-2">
-                <h1>Edit Category</h1>
-            </div>
-            <form>
-                @foreach(session('cart') as $id => $details)
-
-                    <div class="row mt-2 cart-detail">
-                            <div class="col-lg-4 col-sm-4 col-4 cart-detail-img">
-                                <img class="card mx-auto my-auto" style="width: 15rem;" src="{{asset('upload/flower/'.$details['photo']) }}">
-                            </div>
-                            <div class="col-lg-4 col-sm-4 col-4 cart-detail-product">
-                                <p>{{ $details['name'] }}</p>
-                                <span class="price text-info"> ${{ $details['price'] }}</span> <span class="count"> Quantity:{{ $details['quantity'] }}</span>
-                                <div class="mt-2 col-lg-5 col-sm-5 col-5">
-                                    <button type="submit" class="btn btn-danger btn-block">Remove</button>
-                                </div>
-                            </div>
-                    </div>
-
-                @endforeach
-                <div class="container col-md-auto mt-4">
-                    <button type="submit" class="btn btn-success btn-lg btn-block">Checkout</button>
-                </div>
-            </form>
-        </div>
-    </div> -->
+  </div>
 @endsection
 @section('userinfo')
     @if(\Illuminate\Support\Facades\Auth::guest())
@@ -130,5 +96,24 @@
             @endif
         </li>
     @endif
+@endsection
+
+@section('script')
+    <script>
+        $(document).ready(function () {
+            $(".update").click(function (e) {
+                e.preventDefault();
+                var x = $(this);
+                $.ajax({
+                    url:"{{url('/updatecart')}}",
+                    method: 'patch',
+                    data: { _token: '{{csrf_token()}}',id: x.attr("data-id"),quantity: x.parents(".con").find(".quantity").val()},
+                    success: function (response) {
+                        window.location.reload();
+                    }
+                });
+            });
+        });
+    </script>
 @endsection
 
