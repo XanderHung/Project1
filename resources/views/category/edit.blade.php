@@ -27,7 +27,7 @@
                 @csrf
                 <div class="row">
                         <div class="col-md-4">
-                        <img class="rounded mx-auto d-block" src="{{asset('upload/category/' . $selcat->categoryimage)}}" alt="Card image cap">
+                        <img class="img-thumbnail rounded mx-auto d-block" src="{{asset('upload/category/' . $selcat->categoryimage)}}" alt="Card image cap">
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
