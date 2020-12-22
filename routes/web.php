@@ -48,3 +48,5 @@ Route::get('/viewcart','Cart@viewcart');
 Route::post('addtocart/{id}','Cart@addcart');
 Route::patch('/updatecart','Cart@update');
 Route::get('/checkout','Cart@checkout');
+Route::get('/searchman/{id}','flower@searchman');
+Route::get('/searchview/{id}','flower@searchview');

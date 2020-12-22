@@ -26,7 +26,8 @@ class flower extends Controller
         $this->validate($request, [
             'categoryid' => 'required|string',
             'flowername' => 'required|string',
-            'description' => 'required|string',
+            'description' => 'required|string|max:255',
+            'price'=>'required|numeric',
         ]);
 
         $flower = new \App\Flower();
@@ -45,17 +46,46 @@ class flower extends Controller
     public function viewflower($id){
         $category = \App\Category::all();
         $user = DB::table('users')->join('roletype','users.roleid','=','roletype.roleid')
-            ->where('id','=',Auth::id())->first();
+            ->where('id',Auth::id())->first();
+        $selcat = DB::table('category')->where('categoryname', $id)->pluck('categoryid')->first();
+        $flower = DB::table('flower')->where('categoryid',$selcat)->paginate(8);
         $selcat = DB::table('category')->where('categoryname', $id)->first();
-        $flower = \App\Flower::all();
         if (Auth::guest()){
-            return view('/flower/viewflower', compact('category','selcat', 'flower'));
+            return view('/flower/viewflower', compact('category', 'selcat','flower'));
         }else {
-            return view('/flower/viewflower', compact('category', 'user', 'selcat', 'flower'));
+            return view('/flower/viewflower', compact('category', 'user','selcat', 'flower'));
         }
     }
-
-
+    public function searchview(Request $request,$id){
+        $category = \App\Category::all();
+        $user = DB::table('users')->join('roletype','users.roleid','=','roletype.roleid')
+            ->where('id',Auth::id())->first();
+        $selcat = DB::table('category')->where('categoryid', $id)->first();
+        if($request->searchtype == "flowername") {
+            $name = "%".$request->searchname."%";
+            $flower = DB::table('flower')->where('categoryid',$id)->where($request->searchtype,'LIKE', $name)->paginate(8);
+        }else{
+            $flower = DB::table('flower')->where('categoryid',$id)->where($request->searchtype,'<',$request->searchname)->paginate(8);
+        }
+        if(Auth::guest()){
+            return view('/flower/viewflower', compact('category', 'selcat','flower'));
+        }else{
+            return view('/flower/viewflower', compact('category', 'user','selcat', 'flower'));
+        }
+    }
+    public function searchman(Request $request,$id){
+        $category = \App\Category::all();
+        $user = DB::table('users')->join('roletype','users.roleid','=','roletype.roleid')
+            ->where('id',Auth::id())->first();
+        $selcat = DB::table('category')->where('categoryid', $id)->first();
+        if($request->searchtype == "flowername") {
+            $name = "%".$request->searchname."%";
+            $flower = DB::table('flower')->where('categoryid',$id)->where($request->searchtype,'LIKE', $name)->paginate(8);
+        }else{
+            $flower = DB::table('flower')->where('categoryid',$id)->where($request->searchtype,'<',$request->searchname)->paginate(8);
+        }
+            return view('/flower/manflower', compact('category', 'user','selcat', 'flower'));
+    }
     public function detailflower($id){
         $category = \App\Category::all();
         $user = DB::table('users')->join('roletype','users.roleid','=','roletype.roleid')
@@ -63,7 +93,7 @@ class flower extends Controller
         $selcat = DB::table('category')->where('categoryname', $id)->first();
         $flower = DB::table('flower')->where('flowerid',$id)->first();
         if (Auth::guest()){
-            return view('/flower/detailflower', compact('category','selcat', 'user','flower'));
+            return view('/flower/detailflower', compact('category','selcat','flower'));
         }else {
             return view('/flower/detailflower', compact('category', 'user', 'selcat', 'flower'));
         }
@@ -73,12 +103,13 @@ class flower extends Controller
         $category = \App\Category::all();
         $user = DB::table('users')->join('roletype','users.roleid','=','roletype.roleid')
             ->where('id','=',Auth::id())->first();
+        $selcat = DB::table('category')->where('categoryname', $id)->pluck('categoryid')->first();
+        $flower = DB::table('flower')->where('categoryid',$selcat)->paginate(3);
         $selcat = DB::table('category')->where('categoryname', $id)->first();
-        $flower = \App\Flower::all();
         if (Auth::guest()){
-            return view('/flower/manflower', compact('category','selcat', 'flower'));
+            return view('/flower/manflower', compact('category', 'selcat','flower'));
         }else {
-            return view('/flower/manflower', compact('category', 'user', 'selcat', 'flower'));
+            return view('/flower/manflower', compact('category', 'selcat','user', 'flower'));
         }
     }
     public function showeditform($id)
@@ -98,12 +129,17 @@ class flower extends Controller
 
     public function update(Request $request,$id)
     {
+        $this->validate($request, [
+            'categoryid' => 'required|string',
+            'flowername' => 'required|string',
+            'description' => 'required|string',
+            'price'=>'required|numeric'
+        ]);
     $data=array();
     $data['categoryid'] = $request->categoryid;
     $data['flowername'] = $request->flowername;
     $data['description'] = $request->description;
     $data['price'] = $request->price;
-    $data['flowerimage'] = $request->file('flowerimage');
 
     $file = $request->file('flowerimage');
     $extension = $file->getClientOriginalExtension();

@@ -1,7 +1,7 @@
 @extends('viewdef')
 @section('category')
     @foreach($category as $cat)
-        @if(\Illuminate\Support\Facades\Auth::guest() || $user->roleid == 'User')
+        @if(\Illuminate\Support\Facades\Auth::guest() || $user->rolename == 'User')
             <a class="dropdown-item" href="/viewflower/{{$cat->categoryname}}">{{$cat->categoryname}}</a>
         @else
             <a class="dropdown-item" href="/manflower/{{$cat->categoryname}}">{{$cat->categoryname}}</a>

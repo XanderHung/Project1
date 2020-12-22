@@ -15,6 +15,10 @@ class Login extends Controller
     }
     public function login(Request $request)
     {
+        $this->validate($request, [
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+        ]);
         $email= $request->input('email');
         $password = $request->input('password');
         $remember = $request->input('remember');

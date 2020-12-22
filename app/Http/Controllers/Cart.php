@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\DB;
 class Cart extends Controller
 {
     public function viewcart(){
-//        session()->forget('cart');
         $category = \App\Category::all();
         $user = DB::table('users')->join('roletype','users.roleid','=','roletype.roleid')
             ->where('id','=',Auth::id())->first();
@@ -53,6 +52,9 @@ class Cart extends Controller
 //                $cart->save();
 //            }
 //        }
+        $this->validate($request, [
+            'quantity' => 'required|numeric',
+        ]);
         $cart = session()->get('cart');
         $flower = DB::table("flower")->where('flowerid',$id)->first();
         if(!$cart) {
@@ -85,6 +87,10 @@ class Cart extends Controller
     }
     public function update(Request $request)
     {
+        $this->validate($request, [
+            'id' => 'required|string',
+            'quantity' => 'required|numeric'
+        ]);
         if($request->quantity == 0) {
             $cart = session()->get('cart');
             if(isset($cart[$request->id])) {
@@ -92,7 +98,7 @@ class Cart extends Controller
                 session()->put('cart', $cart);
             }
         }else if ($request->id and $request->quantity) {
-            $flower = DB::table("flower")->where('flowername', $request->id)->limit(1)->pluck('flowerid');
+            $flower = DB::table("flower")->where('flowername', $request->id)->pluck('flowerid')->first();
             $cart = session()->get('cart');
             $cart[$request->id]["quantity"] = $request->quantity;
             session()->put('cart', $cart);

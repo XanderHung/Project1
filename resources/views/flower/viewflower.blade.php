@@ -1,7 +1,7 @@
 @extends('viewdef')
 @section('category')
     @foreach($category as $cat)
-        @if(\Illuminate\Support\Facades\Auth::guest() || $user->roleid == 'User')
+        @if(\Illuminate\Support\Facades\Auth::guest() || $user->rolename == 'User')
             <a class="dropdown-item" href="/viewflower/{{$cat->categoryname}}">{{$cat->categoryname}}</a>
         @else
             <a class="dropdown-item" href="/manflower/{{$cat->categoryname}}">{{$cat->categoryname}}</a>
@@ -13,12 +13,23 @@
         <div class="title text-center my-2">
             <h1>{{$selcat->categoryname}}</h1>
         </div>
-
+        <form action="/searchview/{{$selcat->categoryid}}" method="get" enctype="multipart/form-data" class="form-inline">
+            @csrf
+                <div class="form-group mx-sm-3 mb-2">
+                    <select class="form-control" name="searchtype">
+                        <option value="flowername">Name</option>
+                        <option value="price">Price</option>
+                    </select>
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Search" name="searchname">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
         <div class="row my-3">
         @foreach($flower as $catflow)
-            @if($catflow->categoryid === $selcat->categoryid)
         <div class="card mx-auto my-auto" style="width: 15rem;">
-        <a href="/detailflower/{{$catflow->flowerid}}" class="card-title text-center">    
+        <a href="/detailflower/{{$catflow->flowerid}}" class="card-title text-center">
         <img class="card-img-top" style="max-height: 15rem;" src="{{asset('upload/flower/' . $catflow->flowerimage)}}" alt="Card image cap">
             <div class="card-body text-center">
                 <div class="text-center">
@@ -27,10 +38,12 @@
             </div>
         </a>
         </div>
-                @endif
             @endforeach
-        </div>
 
+        </div>
+        <div class="">
+            {{ $flower->links() }}
+        </div>
     </div>
 @endsection
 @section('userinfo')

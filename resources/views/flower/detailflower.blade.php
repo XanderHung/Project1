@@ -26,6 +26,7 @@
                                 <p class="text-success">Rp{{$flower->price}},-</p> <br>
                                 <p class="text-muted">{{$flower->description}}</p>
                         </div>
+                        @if(\Illuminate\Support\Facades\Auth::guest() || $user->rolename == 'User')
                         <form action="/addtocart/{{$flower->flowerid}}" method="POST" enctype="multipart/form-data">
                         @csrf
                             <div class="form-row align-items-center">
@@ -52,6 +53,7 @@
                             </div>
                         </div>
                         </form>
+                            @endif
                     </div>
             </div>
         </div>

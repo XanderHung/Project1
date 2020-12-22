@@ -1,11 +1,7 @@
 @extends('viewdef')
 @section('category')
     @foreach($category as $cat)
-        @if(\Illuminate\Support\Facades\Auth::guest() || $user->roleid == 'User')
-            <a class="dropdown-item" href="/viewflower/{{$cat->categoryname}}">{{$cat->categoryname}}</a>
-        @else
             <a class="dropdown-item" href="/manflower/{{$cat->categoryname}}">{{$cat->categoryname}}</a>
-        @endif
     @endforeach
 @endsection
 @section('content')
@@ -20,14 +16,14 @@
             <div class="title text-center my-2">
                     <h1>Edit Flower</h1>
             </div>
-            
+
             <form action="{{ url('/updateflower/'.$flower->flowerid) }}" method="POST" enctype="multipart/form-data" class="form-horizontal my-5">
-            
+
                     <div class="row">
                         <div class="col-md-4">
                             <img class="img-thumbnail rounded mx-auto d-block" src="{{asset('upload/flower/' . $flower->flowerimage)}}" alt="Card image cap">
                         </div>
-                        <div class="col-md-4">  
+                        <div class="col-md-4">
                         @csrf
                             <div class="form-group">
                                 <label class="control-label col-sm-7" for="category">Category</label>

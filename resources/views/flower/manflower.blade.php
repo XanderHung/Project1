@@ -1,11 +1,7 @@
 @extends('viewdef')
 @section('category')
     @foreach($category as $cat)
-        @if(\Illuminate\Support\Facades\Auth::guest() || $user->roleid == 'User')
-            <a class="dropdown-item" href="/viewflower/{{$cat->categoryname}}">{{$cat->categoryname}}</a>
-        @else
             <a class="dropdown-item" href="/manflower/{{$cat->categoryname}}">{{$cat->categoryname}}</a>
-        @endif
     @endforeach
 @endsection
 @section('content')
@@ -18,10 +14,21 @@
         <div class="title text-center my-2">
             <h1>{{$selcat->categoryname}}</h1>
         </div>
-
+        <form action="/searchman/{{$selcat->categoryid}}" method="get" enctype="multipart/form-data" class="form-inline">
+            @csrf
+            <div class="form-group mx-sm-3 mb-2">
+                <select class="form-control" name="searchtype">
+                    <option value="flowername">Name</option>
+                    <option value="price">Price</option>
+                </select>
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Search" name="searchname">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
         <div class="row my-3">
             @foreach($flower as $catflow)
-                @if($catflow->categoryid == $selcat->categoryid)
                 <div class="card mx-auto my-2" style="width: 15rem;">
                     <img class="card-img-top" src="{{asset('upload/flower/' . $catflow->flowerimage)}}" alt="Card image cap">
                     <div class="card-body">
@@ -32,8 +39,8 @@
                         </div>
                     </div>
                 </div>
-                @endif
             @endforeach
+                {{ $flower->links() }}
         </div>
     </div>
 @endsection

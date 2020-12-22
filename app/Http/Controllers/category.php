@@ -25,6 +25,9 @@ class category extends Controller
         return view('/category/edit',compact('selcat','user','category'));
     }
     public function update(Request $request,$id){
+        $this->validate($request, [
+            'categoryname' => 'required|string',
+        ]);
         $data=array();
         $data['categoryname']= $request->input('categoryname');
         if ($request ->hasfile('categoryimage')){
