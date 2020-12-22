@@ -17,7 +17,7 @@ class History extends Migration
             $table->increments('transactionid');
             $table->bigInteger('userid')->unsigned();
             $table->foreign('userid')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->date('transactiondate');
+            $table->dateTime('transactiondate');
             $table->timestamps();
         });
     }

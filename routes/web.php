@@ -47,5 +47,4 @@ Route::get('/register','register@showregisterform');
 Route::get('/viewcart','Cart@viewcart');
 Route::post('addtocart/{id}','Cart@addcart');
 Route::patch('/updatecart','Cart@update');
-Route::get('/deletecart','Cart@delete');
-
+Route::get('/checkout','Cart@checkout');

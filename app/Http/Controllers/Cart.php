@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\detailcart;
+use App\detailhistory;
 use App\history;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -95,6 +97,31 @@ class Cart extends Controller
             $cart[$request->id]["quantity"] = $request->quantity;
             session()->put('cart', $cart);
         }
+    }
+    public function checkout(){
+        $mytime =Carbon::now();
+        $cart = session()->get('cart');
+        $flower = DB::table("flower")->pluck('flowerid');
+        $his = new history;
+        $his->userid = Auth::id();
+        $his->transactiondate = $mytime;
+        $his->save();
+        foreach ($cart as $c) {
+            $det = new detailhistory;
+            $det->historyid = $his->id;
+            foreach ($flower as $f) {
+                if (isset($cart[$f])) {
+                    $det->flowerid = $f;
+                    $det->quantity = $cart[$f]["quantity"];
+                    $det->save();
+                    echo $f;
+                    unset($cart[$f]);
+                    break;
+                }
+            }
+        }
+        session()->forget('cart');
+        return redirect('/viewcart');
     }
 //        if($request->quantity == 0){
 //            DB::table('cart')->join('flower','cart.flowerid','=','flower.flowerid')

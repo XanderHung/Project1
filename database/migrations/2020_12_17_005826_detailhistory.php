@@ -19,6 +19,7 @@ class Detailhistory extends Migration
             $table->foreign('historyid')->references('transactionid')->on('history')->onUpdate('cascade')->onDelete('cascade');
             $table->bigInteger('flowerid')->unsigned();
             $table->foreign('flowerid')->references('flowerid')->on('flower')->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('quantity');
             $table->timestamps();
         });
     }
