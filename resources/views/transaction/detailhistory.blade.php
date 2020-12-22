@@ -9,41 +9,30 @@
     @endforeach
 @endsection
 @section('content')
-    @if (session('status'))
-        <div class="alert alert-success">
-            {{ session('status') }}
-        </div>
-    @endif
-<div class="border rounded my-4 p-3 container bg-light">
-    <div class="col-sm-offset-2 col-sm-20 well-sm">
-        <h2>Change Password</h2>
-    </div>
-        <form class="form-horizontal" action="/editpass" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="form-group">
-                <label class="control-label col-sm-5" for="password">Old Password</label>
-                <div class="col-sm-10">
-                <input type="password" class="form-control" id="password" placeholder="Password" name="passwordold">
-                </div>
+    <div class="card wish-list mb-3">
+            <div class="container">
+                <h2 class="text-center mt-4">Your Transaction at {{ $selhist->transactiondate }}</h2>
+                
+                <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">Flower Image</th>
+                    <th scope="col">Flower Name</th>
+                    <th scope="col">Subtotal</th>
+                    </tr>
+                </thead>
+                @foreach($item as $items)
+                <tbody>
+                    <tr>
+                        <td><img class="card" style="width: 10rem; height:10rem;" src="{{asset('upload/flower/' . $items->flowerimage)}}" alt="Card image cap"></td>
+                        <td>{{$items->flowername}}</td>
+                        <td>{{$items->price * $items->quantity}}</td>
+                        </tr>
+                    <tr>
+                </tbody>
+                @endforeach
+                </table>
             </div>
-            <div class="form-group">
-                <label class="control-label col-sm-5" for="password">New Password</label>
-                <div class="col-sm-10">
-                <input type="password" class="form-control" id="password" placeholder="Password" name="password">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-5" for="password">Confirm New Password</label>
-                <div class="col-sm-10">
-                <input type="password" class="form-control" id="password" placeholder="Password" name="password_confirmation">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-primary">Change Password</button>
-                </div>
-            </div>
-        </form>
     </div>
 @endsection
 @section('userinfo')
@@ -55,7 +44,7 @@
             </a>
             @if($user->rolename == 'User')
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="/viewcat">My Cart</a>
+                    <a class="dropdown-item" href="/viewcart">My Cart</a>
                     <a class="dropdown-item" href="/history">Transaction History</a>
                     <a class="dropdown-item" href="/editpass">Change Password</a>
                     <a class="dropdown-item" href="/logout">Logout</a>
@@ -71,4 +60,3 @@
         </li>
     @endif
 @endsection
-

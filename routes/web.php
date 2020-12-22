@@ -50,3 +50,5 @@ Route::patch('/updatecart','Cart@update');
 Route::get('/checkout','Cart@checkout');
 Route::get('/searchman/{id}','flower@searchman');
 Route::get('/searchview/{id}','flower@searchview');
+Route::get('/history','history@viewhistory');
+Route::get('/detailhistory/{id}','history@detailhistory');

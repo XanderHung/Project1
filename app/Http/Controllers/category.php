@@ -34,7 +34,7 @@ class category extends Controller
         $file = $request->file('categoryimage');
         $extension = $file->getClientOriginalExtension();
         $filename = time() . '.' . $extension;
-        $file->move('upload/flower/', $filename);
+        $file->move('upload/category/', $filename);
         $data['categoryimage'] = $filename;
         }else{
             $data['categoryimage'] = DB::table('category')->where('categoryid',$id)->pluck('categoryimage')->first();
