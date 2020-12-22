@@ -5,6 +5,11 @@
     @endforeach
 @endsection
 @section('content')
+    @if($errors->any())
+        <div class="alert alert-warning">
+            {{$errors->first()}}
+        </div>
+    @endif
 <div class="container">
     <div class="col-sm-offset-2 col-sm-20 well-sm">
         <h2>Register</h2>

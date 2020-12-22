@@ -16,7 +16,7 @@
     @endif
 <div class="row col-md-12 text-center">
     <div class="col md-3">
-        <h1>Welcome To Flowelto Shop</h1>
+        <h1 class="my-3">Welcome To Flowelto Shop</h1>
         <h3>The best Flower Shop in Binus University</h3>
         <div class="border rounded my-4 p-3 container bg-light">
             <div class="row my-3">

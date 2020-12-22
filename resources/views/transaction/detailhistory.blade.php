@@ -12,7 +12,7 @@
     <div class="card wish-list mb-3">
             <div class="container">
                 <h2 class="text-center mt-4">Your Transaction at {{ $selhist->transactiondate }}</h2>
-                
+
                 <table class="table">
                 <thead>
                     <tr>
@@ -21,17 +21,20 @@
                     <th scope="col">Subtotal</th>
                     </tr>
                 </thead>
+                    <?php $i=0 ?>
                 @foreach($item as $items)
                 <tbody>
                     <tr>
                         <td><img class="card" style="width: 10rem; height:10rem;" src="{{asset('upload/flower/' . $items->flowerimage)}}" alt="Card image cap"></td>
                         <td>{{$items->flowername}}</td>
                         <td>{{$items->price * $items->quantity}}</td>
+                        <?php $i += $items->price * $items->quantity ?>
                         </tr>
                     <tr>
                 </tbody>
                 @endforeach
                 </table>
+                <div class=" d-flex flex-row-reverse">Total Price : Rp. {!! $i !!},-</div>
             </div>
     </div>
 @endsection

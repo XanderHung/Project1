@@ -31,24 +31,29 @@ Route::group([
     Route::get('/editcat/{id}','category@showeditform');
     Route::post('/updatecategory/{id}','category@update');
 });
-Route::get('/detailflower/{id}','flower@detailflower');
-Route::get('/cart','cart@viewcart');
-Route::get('/addtocart/{id}','cart@addtocart');
+Route::group(['middleware' => [\App\Http\Middleware\User::class]],
+function (){
+Route::post('/addtocart/{id}','Cart@addcart');
+Route::patch('/updatecart','Cart@update');
+Route::get('/history','history@viewhistory');
+Route::get('/detailhistory/{id}','history@detailhistory');
+Route::get('/checkout','Cart@checkout');
+Route::get('/viewcart','Cart@viewcart');
+});
+Route::group(['middlware'=>[\App\Http\Middleware\User::class,\App\Http\Middleware\Admin::class]],
+function (){
 Route::get('/editpass','AdminController@changepassword');
 Route::post('/editpass','AdminController@confirmchange');
+Route::get('/logout','Login@logout');
+
+});
+Route::get('/detailflower/{id}','flower@detailflower');
 Route::get('/viewflower/{id}','flower@viewflower');
 Route::get('/', 'UserController@index');
 Route::post('/register','register@register');
 Route::post('/login','Login@login');
-Route::get('/logout','Login@logout');
 Route::get('/login','Login@showloginform');
 Route::get('/viewcat','UserController@viewcategory');
 Route::get('/register','register@showregisterform');
-Route::get('/viewcart','Cart@viewcart');
-Route::post('addtocart/{id}','Cart@addcart');
-Route::patch('/updatecart','Cart@update');
-Route::get('/checkout','Cart@checkout');
 Route::get('/searchman/{id}','flower@searchman');
 Route::get('/searchview/{id}','flower@searchview');
-Route::get('/history','history@viewhistory');
-Route::get('/detailhistory/{id}','history@detailhistory');

@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class User
 {
@@ -15,6 +16,13 @@ class User
      */
     public function handle($request, Closure $next)
     {
-        return $next($request);
+        if (Auth::check() && Auth::user()->roleid == '1') {
+            return $next($request);
+        }
+        if(Auth::guest()){
+            return redirect('/register')->withErrors(['Register First Before Proceed!!']);
+        }else{
+            abort(403,'You Are Not Allowed');
+        }
     }
 }

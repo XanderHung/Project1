@@ -37,24 +37,24 @@
             </div>
             <div class="col-md-7 col-lg-9 col-xl-9">
                 <div class="con">
-                <div class="d-flex justify-content-between">
                   <div>
                       <h5>{{ $details['name'] }}</h5>
                   </div>
-                  <div>
-                    <div class="def-number-input number-input safari_only mb-0 w-100">
-                      <input id="quantity" class="quantity" min="0" name="quantity" value="{{ $details['quantity'] }}" type="number">
+                <div class="d-flex flex-row-reverse">
+                  <div class="form-group">
+                      <button class="btn btn-success update" data-id="{{$id}}">Update</button>
+                  </div>
+                  <div class="mx-4">
+                    <div class="d-flex flex-row-reverse">
+                      <input id="quantity" class="col-sm-4 form-control quantity" min="0" name="quantity" value="{{ $details['quantity'] }}" type="number">
                     </div>
-                    <small id="passwordHelpBlock" class="form-text text-muted text-center">
-                        {{ $details['quantity'] }}
+                    <small id="passwordHelpBlock" class="form-text text-muted text-right px-1">
+                        Quantity: {{ $details['quantity'] }}
                     </small>
                   </div>
                 </div>
                 <div class="d-flex justify-content-between align-items-center">
                   <p class="mb-0"><span><strong>Rp{{ $details['price'] * $details['quantity']}},-</strong></span></p>
-                  <div class="form-group">
-                      <button class="btn btn-success update" data-id="{{$id}}">Update</button>
-                  </div>
                 </div>
               </div>
 
